@@ -22,20 +22,20 @@ type LineItem struct {
 
 // Category represents a specific grading area
 type Category struct {
-	Name             string     `json:"name"`
-	Description      string     `json:"description"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
 	// Handled by grader automatically (summed from line items)
-	Score            float64    `json:"score"`
-	MaxScore         float64    `json:"max_score"`
-	Weight           float64    `json:"weight"`
+	Score    float64 `json:"score"`
+	MaxScore float64 `json:"max_score"`
+	Weight   float64 `json:"weight"`
 	// Handled by grader automatically (calculated as Score/MaxScore * Weight)
-	WeightPercentage float64    `json:"weight_percentage"`
+	WeightPercentage float64 `json:"weight_percentage"`
 	// Optional override, handled by grader automatically if not set (pass/warning/error/ignored)
-	Status           Status     `json:"status"`
+	Status Status `json:"status"`
 	// Optional details or notes about the category
-	Details          string     `json:"details"`
-	DetailsArgs      []any      `json:"details_args,omitempty"`
-	LineItems        []LineItem `json:"line_items"`
+	Details     string     `json:"details"`
+	DetailsArgs []any      `json:"details_args,omitempty"`
+	LineItems   []LineItem `json:"line_items"`
 }
 
 // Report represents the final grading output

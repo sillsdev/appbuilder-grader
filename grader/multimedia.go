@@ -21,49 +21,17 @@ func (g *Grader) checkMultimedia() models.Category {
 }
 
 func (g *Grader) checkAudio() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.audio_name",
-		Description: "line_items.audio_desc",
-		MaxScore:    3.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.audio_name", "line_items.audio_desc", 3.0)
 }
 
 func (g *Grader) checkStyleOfAudio() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.style_of_audio_name",
-		Description: "line_items.style_of_audio_desc",
-		MaxScore:    2.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.style_of_audio_name", "line_items.style_of_audio_desc", 2.0)
 }
 
 func (g *Grader) checkSynchronizedHighlighting() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.synchronized_highlighting_name",
-		Description: "line_items.synchronized_highlighting_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.synchronized_highlighting_name", "line_items.synchronized_highlighting_desc", 1.0)
 }
 
 func (g *Grader) checkVideo() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.video_name",
-		Description: "line_items.video_desc",
-		MaxScore:    4.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.video_name", "line_items.video_desc", 4.0)
 }

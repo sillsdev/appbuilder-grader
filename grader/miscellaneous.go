@@ -20,37 +20,13 @@ func (g *Grader) checkMiscellaneous() models.Category {
 }
 
 func (g *Grader) checkWebSiteText() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.web_site_text_name",
-		Description: "line_items.web_site_text_desc",
-		MaxScore:    2.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.web_site_text_name", "line_items.web_site_text_desc", 2.0)
 }
 
 func (g *Grader) checkDBLText() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.dbl_text_name",
-		Description: "line_items.dbl_text_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.dbl_text_name", "line_items.dbl_text_desc", 1.0)
 }
 
 func (g *Grader) checkYouVersionText() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.youversion_text_name",
-		Description: "line_items.youversion_text_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.youversion_text_name", "line_items.youversion_text_desc", 1.0)
 }

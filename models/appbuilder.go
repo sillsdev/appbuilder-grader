@@ -3,58 +3,58 @@ package models
 import "encoding/xml"
 
 type AppDef struct {
-	XMLName            xml.Name `xml:"app-definition"`
-	Type               string   `xml:"type,attr"`
-	ProgramVersion 	   string   `xml:"program-version,attr"`
+	XMLName        xml.Name `xml:"app-definition"`
+	Type           string   `xml:"type,attr"`
+	ProgramVersion string   `xml:"program-version,attr"`
 
 	ProjectName        string `xml:"project-name"`
 	ProjectDescription string `xml:"project-description"`
 
-	AppName            string `xml:"app-name"`
-	ApkFilename        string `xml:"apk-filename"`
-	Package            string `xml:"package"`
-	Version            Version `xml:"version"`
-	MultipleApks       string `xml:"multiple-apks"`
-	AndroidSdk         AndroidSdk `xml:"android-sdk"`
-	InstallLocation    string `xml:"install-location"`
+	AppName         string     `xml:"app-name"`
+	ApkFilename     string     `xml:"apk-filename"`
+	Package         string     `xml:"package"`
+	Version         Version    `xml:"version"`
+	MultipleApks    string     `xml:"multiple-apks"`
+	AndroidSdk      AndroidSdk `xml:"android-sdk"`
+	InstallLocation string     `xml:"install-location"`
 
-	IpaFilename        string `xml:"ipa-filename"`
-	IpaVersion         IpaVersion `xml:"ipa-version"`
-	IpaAssetFilename   string `xml:"ipa-asset-filename"`
-	IpaAppType         string `xml:"ipa-app-type"`
-	IpaContainerAudio  string `xml:"ipa-container-audio"`
+	IpaFilename       string     `xml:"ipa-filename"`
+	IpaVersion        IpaVersion `xml:"ipa-version"`
+	IpaAssetFilename  string     `xml:"ipa-asset-filename"`
+	IpaAppType        string     `xml:"ipa-app-type"`
+	IpaContainerAudio string     `xml:"ipa-container-audio"`
 
-	PwaManifest        PwaManifest `xml:"pwa-manifest"`
-	Signing            Signing `xml:"signing"`
-	Resigning          Resigning `xml:"resigning"`
-	Publishing         Publishing `xml:"publishing"`
+	PwaManifest PwaManifest `xml:"pwa-manifest"`
+	Signing     Signing     `xml:"signing"`
+	Resigning   Resigning   `xml:"resigning"`
+	Publishing  Publishing  `xml:"publishing"`
 
-	About              About `xml:"about"`
-	AudioSources       AudioSources `xml:"audio-sources"`
-	Videos             Videos `xml:"videos"`
-	DeepLinking        DeepLinking `xml:"deep-linking"`
-	Expiry             Expiry `xml:"expiry"`
+	About        About        `xml:"about"`
+	AudioSources AudioSources `xml:"audio-sources"`
+	Videos       Videos       `xml:"videos"`
+	DeepLinking  DeepLinking  `xml:"deep-linking"`
+	Expiry       Expiry       `xml:"expiry"`
 
-	Features           Features `xml:"features"`
-	Firebase           Firebase `xml:"firebase"`
-	Fonts              Fonts `xml:"fonts"`
-	ColorScheme        string `xml:"color-scheme"`
-	ColorThemes        ColorThemes `xml:"color-themes"`
-	Colors             []Color `xml:"colors"`
-	Styles             Styles `xml:"styles"`
-	Traits             Traits `xml:"traits"`
+	Features    Features    `xml:"features"`
+	Firebase    Firebase    `xml:"firebase"`
+	Fonts       Fonts       `xml:"fonts"`
+	ColorScheme string      `xml:"color-scheme"`
+	ColorThemes ColorThemes `xml:"color-themes"`
+	Colors      []Color     `xml:"colors"`
+	Styles      Styles      `xml:"styles"`
+	Traits      Traits      `xml:"traits"`
 
-	Books              []Books `xml:"books"`
-	Plans              Plans `xml:"plans"`
-	Layouts            Layouts `xml:"layouts"`
-	Assistant          Assistant `xml:"assistant"`
-	MenuItems          []MenuItems `xml:"menu-items"`
-	Security           Security `xml:"security"`
-	InterfaceLanguages InterfaceLanguages `xml:"interface-languages"`
+	Books               []Books             `xml:"books"`
+	Plans               Plans               `xml:"plans"`
+	Layouts             Layouts             `xml:"layouts"`
+	Assistant           Assistant           `xml:"assistant"`
+	MenuItems           []MenuItems         `xml:"menu-items"`
+	Security            Security            `xml:"security"`
+	InterfaceLanguages  InterfaceLanguages  `xml:"interface-languages"`
 	TranslationMappings TranslationMappings `xml:"translation-mappings"`
 
-	Images             Images `xml:"images"`
-	AdaptiveIcon       AdaptiveIcon `xml:"adaptive-icon"`
+	Images       Images       `xml:"images"`
+	AdaptiveIcon AdaptiveIcon `xml:"adaptive-icon"`
 }
 
 type Version struct {
@@ -72,10 +72,10 @@ type IpaVersion struct {
 }
 
 type PwaManifest struct {
-	Name          string `xml:"name,attr"`
-	ShortName     string `xml:"short-name,attr"`
-	PwaText       PwaText `xml:"pwa-text"`
-	PwaSubDir     string `xml:"pwa-sub-directory"`
+	Name      string  `xml:"name,attr"`
+	ShortName string  `xml:"short-name,attr"`
+	PwaText   PwaText `xml:"pwa-text"`
+	PwaSubDir string  `xml:"pwa-sub-directory"`
 }
 
 type PwaText struct {
@@ -84,15 +84,15 @@ type PwaText struct {
 }
 
 type Signing struct {
-	Keystore        string `xml:"keystore"`
-	KeystorePass    string `xml:"keystore-password"`
-	Alias           string `xml:"alias"`
-	AliasPassword   string `xml:"alias-password"`
+	Keystore      string `xml:"keystore"`
+	KeystorePass  string `xml:"keystore-password"`
+	Alias         string `xml:"alias"`
+	AliasPassword string `xml:"alias-password"`
 }
 
 type Resigning struct {
-	SigningIdentity      SigningIdentity `xml:"signing-identity"`
-	ProvisioningProfile  string `xml:"provisioning-profile"`
+	SigningIdentity     SigningIdentity `xml:"signing-identity"`
+	ProvisioningProfile string          `xml:"provisioning-profile"`
 }
 
 type SigningIdentity struct {
@@ -101,10 +101,10 @@ type SigningIdentity struct {
 }
 
 type Publishing struct {
-	Mode         string `xml:"mode,attr"`
-	ProjectUrl   string `xml:"project-url"`
-	GooglePlay   GooglePlay `xml:"google-play"`
-	SyncOptions  SyncOptions `xml:"sync-options"`
+	Mode           string         `xml:"mode,attr"`
+	ProjectUrl     string         `xml:"project-url"`
+	GooglePlay     GooglePlay     `xml:"google-play"`
+	SyncOptions    SyncOptions    `xml:"sync-options"`
 	ScriptureEarth ScriptureEarth `xml:"scripture-earth"`
 }
 
@@ -131,13 +131,13 @@ type AudioSources struct {
 }
 
 type AudioSource struct {
-	Id           string `xml:"id,attr"`
-	Type         string `xml:"type,attr"`
-	Default      string `xml:"default,attr"`
-	Name         string `xml:"name"`
+	Id            string `xml:"id,attr"`
+	Type          string `xml:"type,attr"`
+	Default       string `xml:"default,attr"`
+	Name          string `xml:"name"`
 	AccessMethods string `xml:"access-methods"`
-	Folder       string `xml:"folder"`
-	Address      string `xml:"address"`
+	Folder        string `xml:"folder"`
+	Address       string `xml:"address"`
 }
 
 type Videos struct {
@@ -145,13 +145,13 @@ type Videos struct {
 }
 
 type Video struct {
-	Id         string `xml:"id,attr"`
-	Width      string `xml:"width,attr"`
-	Height     string `xml:"height,attr"`
-	Title      string `xml:"title"`
-	Thumbnail  string `xml:"thumbnail"`
-	OnlineUrl  string `xml:"online-url"`
-	Placement  Placement `xml:"placement"`
+	Id        string    `xml:"id,attr"`
+	Width     string    `xml:"width,attr"`
+	Height    string    `xml:"height,attr"`
+	Title     string    `xml:"title"`
+	Thumbnail string    `xml:"thumbnail"`
+	OnlineUrl string    `xml:"online-url"`
+	Placement Placement `xml:"placement"`
 }
 
 type Placement struct {
@@ -161,7 +161,7 @@ type Placement struct {
 
 type DeepLinking struct {
 	Enabled string `xml:"enabled,attr"`
-	Uri     Uri `xml:"uri"`
+	Uri     Uri    `xml:"uri"`
 }
 
 type Uri struct {
@@ -175,7 +175,7 @@ type Expiry struct {
 }
 
 type Features struct {
-	Type    string `xml:"type,attr"`
+	Type    string    `xml:"type,attr"`
 	Feature []Feature `xml:"feature"`
 }
 
@@ -190,7 +190,7 @@ type Firebase struct {
 
 type Fonts struct {
 	FontHandling FontHandling `xml:"font-handling"`
-	Font         []Font `xml:"font"`
+	Font         []Font       `xml:"font"`
 }
 
 type FontHandling struct {
@@ -202,10 +202,10 @@ type Viewer struct {
 }
 
 type Font struct {
-	Family      string `xml:"family,attr"`
-	FontName    string `xml:"font-name"`
-	DisplayName string `xml:"display-name"`
-	Filename    Filename `xml:"filename"`
+	Family      string      `xml:"family,attr"`
+	FontName    string      `xml:"font-name"`
+	DisplayName string      `xml:"display-name"`
+	Filename    Filename    `xml:"filename"`
 	StyleDecl   []StyleDecl `xml:"style-decl"`
 }
 
@@ -230,8 +230,8 @@ type ColorTheme struct {
 }
 
 type Color struct {
-	Type        string `xml:"type,attr"`
-	Name        string `xml:"name,attr"`
+	Type         string         `xml:"type,attr"`
+	Name         string         `xml:"name,attr"`
 	ColorMapping []ColorMapping `xml:"color-mapping"`
 }
 
@@ -253,17 +253,17 @@ type Trait struct {
 }
 
 type Books struct {
-	Id                  string `xml:"id,attr"`
-	BookCollectionName  string `xml:"book-collection-name"`
-	BookCollectionAbbrev string `xml:"book-collection-abbrev"`
-	BookCollectionDesc  string `xml:"book-collection-description"`
-	Features            Features `xml:"features"`
-	Metadata            Metadata `xml:"metadata"`
-	StylesInfo          StylesInfo `xml:"styles-info"`
-	FontChoice          FontChoice `xml:"font-choice"`
-	BookOrder           BookOrder `xml:"book-order"`
-	WritingSystem       WritingSystem `xml:"writing-system"`
-	Book                []Book `xml:"book"`
+	Id                   string        `xml:"id,attr"`
+	BookCollectionName   string        `xml:"book-collection-name"`
+	BookCollectionAbbrev string        `xml:"book-collection-abbrev"`
+	BookCollectionDesc   string        `xml:"book-collection-description"`
+	Features             Features      `xml:"features"`
+	Metadata             Metadata      `xml:"metadata"`
+	StylesInfo           StylesInfo    `xml:"styles-info"`
+	FontChoice           FontChoice    `xml:"font-choice"`
+	BookOrder            BookOrder     `xml:"book-order"`
+	WritingSystem        WritingSystem `xml:"writing-system"`
+	Book                 []Book        `xml:"book"`
 }
 
 type Metadata struct {
@@ -276,13 +276,13 @@ type Meta struct {
 }
 
 type StylesInfo struct {
-	TextFont          TextFont `xml:"text-font"`
-	TextSize          TextSize `xml:"text-size"`
-	LineHeight        LineHeight `xml:"line-height"`
-	TextDirection     TextDirection `xml:"text-direction"`
-	NumeralSystem     NumeralSystem `xml:"numeral-system"`
-	VerseNumberStyle  VerseNumberStyle `xml:"verse-number-style"`
-	Styles            Styles `xml:"styles"`
+	TextFont         TextFont         `xml:"text-font"`
+	TextSize         TextSize         `xml:"text-size"`
+	LineHeight       LineHeight       `xml:"line-height"`
+	TextDirection    TextDirection    `xml:"text-direction"`
+	NumeralSystem    NumeralSystem    `xml:"numeral-system"`
+	VerseNumberStyle VerseNumberStyle `xml:"verse-number-style"`
+	Styles           Styles           `xml:"styles"`
 }
 
 type TextFont struct {
@@ -310,7 +310,7 @@ type VerseNumberStyle struct {
 }
 
 type FontChoice struct {
-	Type         string `xml:"type,attr"`
+	Type             string   `xml:"type,attr"`
 	FontChoiceFamily []string `xml:"font-choice-family"`
 }
 
@@ -319,7 +319,7 @@ type BookOrder struct {
 }
 
 type WritingSystem struct {
-	Code         string `xml:"code,attr"`
+	Code         string       `xml:"code,attr"`
 	DisplayNames DisplayNames `xml:"display-names"`
 }
 
@@ -327,18 +327,18 @@ type DisplayNames struct {
 }
 
 type Book struct {
-	Id       string `xml:"id,attr"`
-	Name     string `xml:"name"`
-	Abbrev   string `xml:"abbrev"`
-	Group    string `xml:"group"`
-	SubGroup string `xml:"sub-group"`
+	Id         string     `xml:"id,attr"`
+	Name       string     `xml:"name"`
+	Abbrev     string     `xml:"abbrev"`
+	Group      string     `xml:"group"`
+	SubGroup   string     `xml:"sub-group"`
 	FontChoice FontChoice `xml:"font-choice"`
-	Filename string `xml:"filename"`
-	Source   string `xml:"source"`
-	Audio    []Audio `xml:"audio"`
-	Features Features `xml:"features"`
+	Filename   string     `xml:"filename"`
+	Source     string     `xml:"source"`
+	Audio      []Audio    `xml:"audio"`
+	Features   Features   `xml:"features"`
 	StylesInfo StylesInfo `xml:"styles-info"`
-	BookTabs BookTabs `xml:"book-tabs"`
+	BookTabs   BookTabs   `xml:"book-tabs"`
 }
 
 type Audio struct {
@@ -351,14 +351,14 @@ type BookTabs struct {
 
 type Plans struct {
 	Features Features `xml:"features"`
-	Plan     []Plan `xml:"plan"`
+	Plan     []Plan   `xml:"plan"`
 }
 
 type Plan struct {
-	Id       string `xml:"id,attr"`
-	Days     string `xml:"days,attr"`
-	Title    string `xml:"title"`
-	Filename string `xml:"filename"`
+	Id       string    `xml:"id,attr"`
+	Days     string    `xml:"days,attr"`
+	Title    string    `xml:"title"`
+	Filename string    `xml:"filename"`
 	Image    PlanImage `xml:"image"`
 }
 
@@ -369,15 +369,15 @@ type PlanImage struct {
 }
 
 type Layouts struct {
-	Default string `xml:"default,attr"`
+	Default string   `xml:"default,attr"`
 	Layout  []Layout `xml:"layout"`
 }
 
 type Layout struct {
-	Mode       string `xml:"mode,attr"`
-	Enabled    string `xml:"enabled,attr"`
+	Mode             string             `xml:"mode,attr"`
+	Enabled          string             `xml:"enabled,attr"`
 	LayoutCollection []LayoutCollection `xml:"layout-collection"`
-	Features   Features `xml:"features"`
+	Features         Features           `xml:"features"`
 }
 
 type LayoutCollection struct {
@@ -385,11 +385,11 @@ type LayoutCollection struct {
 }
 
 type Assistant struct {
-	Enabled   string `xml:"enabled,attr"`
-	Providers Providers `xml:"providers"`
+	Enabled   string      `xml:"enabled,attr"`
+	Providers Providers   `xml:"providers"`
 	Heading   Translation `xml:"heading"`
 	Footer    Translation `xml:"footer"`
-	Features  Features `xml:"features"`
+	Features  Features    `xml:"features"`
 }
 
 type Providers struct {
@@ -407,7 +407,7 @@ type Translation struct {
 }
 
 type MenuItems struct {
-	Type     string `xml:"type,attr"`
+	Type     string     `xml:"type,attr"`
 	MenuItem []MenuItem `xml:"menu-item"`
 }
 
@@ -420,9 +420,9 @@ type MenuItem struct {
 }
 
 type Security struct {
-	Mode     string `xml:"mode,attr"`
+	Mode     string           `xml:"mode,attr"`
 	Features SecurityFeatures `xml:"features"`
-	Pin      string `xml:"pin"`
+	Pin      string           `xml:"pin"`
 }
 
 type SecurityFeatures struct {
@@ -430,7 +430,7 @@ type SecurityFeatures struct {
 }
 
 type InterfaceLanguages struct {
-	UseSystemLanguage string `xml:"use-system-language,attr"`
+	UseSystemLanguage string         `xml:"use-system-language,attr"`
 	WritingSystems    WritingSystems `xml:"writing-systems"`
 }
 
@@ -444,12 +444,12 @@ type WritingSystemItem struct {
 }
 
 type TranslationMappings struct {
-	DefaultLang string `xml:"default-lang,attr"`
+	DefaultLang        string               `xml:"default-lang,attr"`
 	TranslationMapping []TranslationMapping `xml:"translation-mapping"`
 }
 
 type TranslationMapping struct {
-	Id          string `xml:"id,attr"`
+	Id          string            `xml:"id,attr"`
 	Translation []TranslationItem `xml:"translation"`
 }
 
@@ -459,7 +459,7 @@ type TranslationItem struct {
 }
 
 type Images struct {
-	Type  string `xml:"type,attr"`
+	Type  string      `xml:"type,attr"`
 	Image []ImageItem `xml:"image"`
 }
 

@@ -15,7 +15,7 @@ func main() {
 	targetDir := flag.String("dir", "", "The target directory containing the build output to grade")
 	outputDir := flag.String("out", "out", "The directory to save the output reports")
 	lang := flag.String("lang", "en", "The language to use for the report (default en)")
-	
+
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "Usage of AppBuilder Grader:\n")
 		flag.PrintDefaults()

@@ -22,61 +22,21 @@ func (g *Grader) checkUserEngagement() models.Category {
 }
 
 func (g *Grader) checkAnalytics() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.analytics_name",
-		Description: "line_items.analytics_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.analytics_name", "line_items.analytics_desc", 1.0)
 }
 
 func (g *Grader) checkTextFeedback() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.text_feedback_name",
-		Description: "line_items.text_feedback_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.text_feedback_name", "line_items.text_feedback_desc", 1.0)
 }
 
 func (g *Grader) checkFurtherInfoLink() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.further_info_link_name",
-		Description: "line_items.further_info_link_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.further_info_link_name", "line_items.further_info_link_desc", 1.0)
 }
 
 func (g *Grader) checkContactDetails() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.contact_details_name",
-		Description: "line_items.contact_details_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.contact_details_name", "line_items.contact_details_desc", 1.0)
 }
 
 func (g *Grader) checkDeepLinking() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.deep_linking_name",
-		Description: "line_items.deep_linking_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.deep_linking_name", "line_items.deep_linking_desc", 1.0)
 }

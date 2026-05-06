@@ -21,49 +21,17 @@ func (g *Grader) checkAccessibility() models.Category {
 }
 
 func (g *Grader) checkShareable() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.shareable_one_to_one_name",
-		Description: "line_items.shareable_one_to_one_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.shareable_one_to_one_name", "line_items.shareable_one_to_one_desc", 1.0)
 }
 
 func (g *Grader) checkSDCardAvailability() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.sd_card_availability_name",
-		Description: "line_items.sd_card_availability_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.sd_card_availability_name", "line_items.sd_card_availability_desc", 1.0)
 }
 
 func (g *Grader) checkDirectLinks() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.direct_links_name",
-		Description: "line_items.direct_links_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.direct_links_name", "line_items.direct_links_desc", 1.0)
 }
 
 func (g *Grader) checkPlayStorePublishing() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.play_store_publishing_name",
-		Description: "line_items.play_store_publishing_desc",
-		MaxScore:    2.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.play_store_publishing_name", "line_items.play_store_publishing_desc", 2.0)
 }

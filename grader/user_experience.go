@@ -26,109 +26,37 @@ func (g *Grader) checkUserExperience() models.Category {
 }
 
 func (g *Grader) checkMenuNavigation() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.menu_navigation_name",
-		Description: "line_items.menu_navigation_desc",
-		MaxScore:    2.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.menu_navigation_name", "line_items.menu_navigation_desc", 2.0)
 }
 
 func (g *Grader) checkKeyboard() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.keyboard_name",
-		Description: "line_items.keyboard_desc",
-		MaxScore:    3.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.keyboard_name", "line_items.keyboard_desc", 3.0)
 }
 
 func (g *Grader) checkContentsMenu() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.contents_menu_name",
-		Description: "line_items.contents_menu_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.contents_menu_name", "line_items.contents_menu_desc", 1.0)
 }
 
 func (g *Grader) checkCustomizedGraphics() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.customized_graphics_name",
-		Description: "line_items.customized_graphics_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.customized_graphics_name", "line_items.customized_graphics_desc", 1.0)
 }
 
 func (g *Grader) checkAppropriateMenuOptions() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.appropriate_menu_options_name",
-		Description: "line_items.appropriate_menu_options_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.appropriate_menu_options_name", "line_items.appropriate_menu_options_desc", 1.0)
 }
 
 func (g *Grader) checkStyleAdjustments() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.style_adjustments_name",
-		Description: "line_items.style_adjustments_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.style_adjustments_name", "line_items.style_adjustments_desc", 1.0)
 }
 
 func (g *Grader) checkTextChanges() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.text_changes_name",
-		Description: "line_items.text_changes_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.text_changes_name", "line_items.text_changes_desc", 1.0)
 }
 
 func (g *Grader) checkAboutBoxInfo() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.about_box_information_name",
-		Description: "line_items.about_box_information_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.about_box_information_name", "line_items.about_box_information_desc", 1.0)
 }
 
 func (g *Grader) checkAboutBoxVernacular() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.about_box_in_vernacular_name",
-		Description: "line_items.about_box_in_vernacular_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.about_box_in_vernacular_name", "line_items.about_box_in_vernacular_desc", 1.0)
 }

@@ -126,15 +126,7 @@ func (g *Grader) checkClickableReferences() models.LineItem {
 	// Placeholder implementation
 	// 0=Unlinked
 	// 1=Cross-references and parallel passages are linked to text
-
-	return models.LineItem{
-		Name:        "line_items.clickable_references_name",
-		Description: "line_items.clickable_references_desc",
-		Score:       0.0,
-		MaxScore:    1.0,
-		Status:      models.StatusIgnored,
-		Details:     "details.clickable_references_details",
-	}
+	return createIgnoredItem("line_items.clickable_references_name", "line_items.clickable_references_desc", 1.0)
 }
 
 func (g *Grader) checkMultilingualScripts() models.LineItem {
@@ -143,15 +135,7 @@ func (g *Grader) checkMultilingualScripts() models.LineItem {
 	// 1=Text in additional script(s)
 	// 2=Text in other regional language(s)
 	// 3=Parallel Back Translation
-
-	return models.LineItem{
-		Name:        "line_items.multilingual_scripts_name",
-		Description: "line_items.multilingual_scripts_desc",
-		Score:       0.0,
-		MaxScore:    3.0,
-		Status:      models.StatusIgnored,
-		Details:     "details.multilingual_scripts_details",
-	}
+	return createIgnoredItem("line_items.multilingual_scripts_name", "line_items.multilingual_scripts_desc", 3.0)
 }
 
 func (g *Grader) checkRedLetterText() models.LineItem {

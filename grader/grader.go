@@ -16,18 +16,20 @@ type Grader struct {
 
 // NewGrader creates a new grader for the specified directory
 func NewGrader(targetDir string) *Grader {
-	// Open and parse appdef from targetDir/*.appDef (or *.appdef ?)
+	grader := &Grader{TargetDir: targetDir}
+
+	// Try to find and parse .appDef file
 	appDefPath := filepath.Join(targetDir, "*.appDef")
-	appDefFiles, _ := filepath.Glob(appDefPath)
-	if len(appDefFiles) > 0 {
-		// Parse the first found appdef file
-		appDefFile := appDefFiles[0]
-		appDef, err := parseAppDef(appDefFile)
-		if err == nil {
-			return &Grader{TargetDir: targetDir, AppDef: appDef}
-		}
+	appDefFiles, err := filepath.Glob(appDefPath)
+	if err != nil || len(appDefFiles) == 0 {
+		return grader
 	}
-	return &Grader{TargetDir: targetDir}
+
+	appDef, err := parseAppDef(appDefFiles[0])
+	if err == nil {
+		grader.AppDef = appDef
+	}
+	return grader
 }
 
 func parseAppDef(appDefFile string) (models.AppDef, error) {
@@ -39,12 +41,44 @@ func parseAppDef(appDefFile string) (models.AppDef, error) {
 	}
 	defer file.Close()
 
-	decoder := xml.NewDecoder(file)
-	if err := decoder.Decode(&appDef); err != nil {
+	if err := xml.NewDecoder(file).Decode(&appDef); err != nil {
 		return appDef, fmt.Errorf("failed to parse appdef XML: %v", err)
 	}
 
 	return appDef, nil
+}
+
+func createIgnoredItem(name, desc string, maxScore float64) models.LineItem {
+	return models.LineItem{
+		Name:        name,
+		Description: desc,
+		MaxScore:    maxScore,
+		Score:       0.0,
+		Status:      models.StatusIgnored,
+		Details:     "details.not_implemented_yet",
+	}
+}
+
+func normalizeWeight(weight float64) float64 {
+	if weight <= 0 {
+		return 1.0
+	}
+	return weight
+}
+
+func determineLineItemStatus(lineItems []models.LineItem) models.Status {
+	status := models.StatusPass
+	for _, li := range lineItems {
+		if li.Status == models.StatusIgnored {
+			continue
+		}
+		if li.Status == models.StatusError {
+			status = models.StatusError
+		} else if li.Status == models.StatusWarning && status != models.StatusError {
+			status = models.StatusWarning
+		}
+	}
+	return status
 }
 
 // Evaluate runs all grading checks and returns a complete report
@@ -65,17 +99,11 @@ func (g *Grader) Evaluate() (*models.Report, error) {
 		g.checkMiscellaneous(),
 	}
 
-	// Calculate weighted total score
 	var totalWeight, weightedScore, unweightedScore, unweightedMax float64
 
-	// First pass: determine status, calculate scores excluding ignored line items
+	// First pass: compute scores and determine status
 	for i := range categories {
 		c := &categories[i]
-		
-		status := models.StatusPass
-		if c.Status != "" {
-			status = c.Status
-		}
 
 		var computedScore, computedMax float64
 		activeItems := 0
@@ -87,39 +115,26 @@ func (g *Grader) Evaluate() (*models.Report, error) {
 			activeItems++
 			computedScore += li.Score
 			computedMax += li.MaxScore
-
-			if c.Status == "" {
-				if li.Status == models.StatusError {
-					status = models.StatusError
-				} else if li.Status == models.StatusWarning && status != models.StatusError {
-					status = models.StatusWarning
-				}
-			}
 		}
 
 		c.Score = computedScore
 		c.MaxScore = computedMax
 
+		// Determine status if not already set
 		if c.Status == "" {
 			if activeItems == 0 && len(c.LineItems) > 0 {
-				status = models.StatusIgnored
+				c.Status = models.StatusIgnored
 			} else {
-				if status == models.StatusPass && c.Score < c.MaxScore {
-					status = models.StatusWarning
+				c.Status = determineLineItemStatus(c.LineItems)
+				if c.Status == models.StatusPass && c.Score < c.MaxScore {
+					c.Status = models.StatusWarning
 				}
 			}
-			c.Status = status
 		}
 
-		if c.Status == models.StatusIgnored {
-			continue
+		if c.Status != models.StatusIgnored {
+			totalWeight += normalizeWeight(c.Weight)
 		}
-
-		weight := c.Weight
-		if weight <= 0 {
-			weight = 1.0
-		}
-		totalWeight += weight
 	}
 
 	// Second pass: calculate percentages and aggregates
@@ -130,11 +145,7 @@ func (g *Grader) Evaluate() (*models.Report, error) {
 			continue
 		}
 
-		weight := c.Weight
-		if weight <= 0 {
-			weight = 1.0
-		}
-
+		weight := normalizeWeight(c.Weight)
 		if totalWeight > 0 {
 			c.WeightPercentage = (weight / totalWeight) * 100
 		}
@@ -145,21 +156,21 @@ func (g *Grader) Evaluate() (*models.Report, error) {
 		unweightedMax += c.MaxScore
 	}
 
+	percentage := 0.0
+	if totalWeight > 0 {
+		percentage = (weightedScore / totalWeight) * 100
+	}
+
 	report := &models.Report{
 		TargetDirectory:    g.TargetDir,
 		Categories:         categories,
 		UnweightedScore:    unweightedScore,
 		UnweightedMaxScore: unweightedMax,
 		TotalWeight:        totalWeight,
+		Percentage:         percentage,
+		TotalScore:         percentage, // Total score matches percentage out of 100
+		MaxTotalScore:      100.0,
 	}
-
-	if totalWeight > 0 {
-		report.Percentage = (weightedScore / totalWeight) * 100
-	} else {
-		report.Percentage = 0
-	}
-	report.TotalScore = report.Percentage // Assuming total score matches percentage out of 100 for simplicity
-	report.MaxTotalScore = 100.0
 
 	return report, nil
 }

@@ -24,85 +24,29 @@ func (g *Grader) checkPlayStorePresence() models.Category {
 }
 
 func (g *Grader) checkAppDescription() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.app_description_name",
-		Description: "line_items.app_description_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.app_description_name", "line_items.app_description_desc", 1.0)
 }
 
 func (g *Grader) checkLocalizedDescriptionLWC() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.localized_description_lwc_name",
-		Description: "line_items.localized_description_lwc_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.localized_description_lwc_name", "line_items.localized_description_lwc_desc", 1.0)
 }
 
 func (g *Grader) checkLocalizedDescriptionVernacular() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.localized_description_vernacular_name",
-		Description: "line_items.localized_description_vernacular_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.localized_description_vernacular_name", "line_items.localized_description_vernacular_desc", 1.0)
 }
 
 func (g *Grader) checkPhoneScreenshots() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.phone_screenshots_name",
-		Description: "line_items.phone_screenshots_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.phone_screenshots_name", "line_items.phone_screenshots_desc", 1.0)
 }
 
 func (g *Grader) checkTabletScreenshots() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.tablet_screenshots_name",
-		Description: "line_items.tablet_screenshots_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.tablet_screenshots_name", "line_items.tablet_screenshots_desc", 1.0)
 }
 
 func (g *Grader) checkEnhancedScreenshots() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.enhanced_screenshots_name",
-		Description: "line_items.enhanced_screenshots_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.enhanced_screenshots_name", "line_items.enhanced_screenshots_desc", 1.0)
 }
 
 func (g *Grader) checkDemoVideo() models.LineItem {
-	item := models.LineItem{
-		Name:        "line_items.demo_video_name",
-		Description: "line_items.demo_video_desc",
-		MaxScore:    1.0,
-	}
-	item.Score = 0.0
-	item.Status = models.StatusIgnored
-	item.Details = "details.not_implemented_yet"
-	return item
+	return createIgnoredItem("line_items.demo_video_name", "line_items.demo_video_desc", 1.0)
 }
