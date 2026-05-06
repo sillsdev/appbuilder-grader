@@ -9,7 +9,6 @@ func (g *Grader) checkManifests() models.Category {
 	cat := models.Category{
 		Name:        "Manifests",
 		Description: "Verifies application configuration and metadata manifests.",
-		MaxScore:    10.0,
 		Weight:      1.5,
 		LineItems:   make([]models.LineItem, 0),
 	}

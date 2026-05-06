@@ -26,6 +26,7 @@ type Category struct {
 // Report represents the final grading output
 type Report struct {
 	TargetDirectory    string     `json:"target_directory"`
+	AppName            string     `json:"app_name"`
 	TotalScore         float64    `json:"total_score"`
 	MaxTotalScore      float64    `json:"max_total_score"`
 	UnweightedScore    float64    `json:"unweighted_score"`

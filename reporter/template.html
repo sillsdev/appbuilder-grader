@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Build Grading Report - {{.TargetDirectory}}</title>
+    <title>Build Grading Report - {{.AppName}}</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; max-width: 1200px; margin: 0 auto; padding: 20px; }
         h1, h2, h3 { color: #2c3e50; margin-top: 0; }
@@ -20,6 +20,7 @@
         .toc-status-error a { border-left: 4px solid #dc3545; }
         .toc-status-warning a { border-left: 4px solid #ffc107; }
         .toc-status-pass a { border-left: 4px solid #28a745; }
+        .toc-status-ignored a { border-left: 4px solid #6c757d; opacity: 0.8; }
         .summary { background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 5px solid #007bff; }
         .score { font-size: 2.5em; font-weight: bold; color: #007bff; }
         .category { background: #fff; border: 1px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
@@ -33,6 +34,7 @@
         .line-item.status-pass { border-left-color: #28a745; }
         .line-item.status-warning { border-left-color: #ffc107; }
         .line-item.status-error { border-left-color: #dc3545; }
+        .line-item.status-ignored { border-left-color: #6c757d; opacity: 0.7; }
         .line-item-header { display: flex; justify-content: space-between; font-weight: bold; }
         .line-item-desc { font-size: 0.9em; color: #666; margin-top: 5px; }
         .line-item-details { display: inline-block; margin-top: 5px; font-size: 0.85em; background: #fff; padding: 2px 5px; border: 1px solid #eee; border-radius: 3px; }
@@ -44,6 +46,7 @@
         .category-status-pass summary { color: #28a745; }
         .category-status-warning summary { color: #d39e00; }
         .category-status-error summary { color: #dc3545; }
+        .category-status-ignored summary { color: #6c757d; }
     </style>
 </head>
 <body>
@@ -55,48 +58,64 @@
             <div class="toc-group">
                 <div class="toc-group-title">Errors</div>
                 <ul class="toc-list">
-                    {{range $index, $cat := .Categories}}
-                    {{if eq $cat.Status "error"}}
+                    {{- range $index, $cat := .Categories}}
+                    {{- if eq $cat.Status "error"}}
                     <li class="toc-item toc-status-error">
                         <a href="#cat-{{$index}}">
                             <span>❌ {{$cat.Name}}</span>
                             <span>{{$cat.Score}}/{{$cat.MaxScore}}</span>
                         </a>
                     </li>
-                    {{end}}
-                    {{end}}
+                    {{- end}}
+                    {{- end}}
                 </ul>
             </div>
 
             <div class="toc-group">
                 <div class="toc-group-title">Warnings</div>
                 <ul class="toc-list">
-                    {{range $index, $cat := .Categories}}
-                    {{if eq $cat.Status "warning"}}
+                    {{- range $index, $cat := .Categories}}
+                    {{- if eq $cat.Status "warning"}}
                     <li class="toc-item toc-status-warning">
                         <a href="#cat-{{$index}}">
                             <span>⚠️ {{$cat.Name}}</span>
                             <span>{{$cat.Score}}/{{$cat.MaxScore}}</span>
                         </a>
                     </li>
-                    {{end}}
-                    {{end}}
+                    {{- end}}
+                    {{- end}}
                 </ul>
             </div>
 
             <div class="toc-group">
                 <div class="toc-group-title">Passed</div>
                 <ul class="toc-list">
-                    {{range $index, $cat := .Categories}}
-                    {{if eq $cat.Status "pass"}}
+                    {{- range $index, $cat := .Categories}}
+                    {{- if eq $cat.Status "pass"}}
                     <li class="toc-item toc-status-pass">
                         <a href="#cat-{{$index}}">
                             <span>✅ {{$cat.Name}}</span>
                             <span>{{$cat.Score}}/{{$cat.MaxScore}}</span>
                         </a>
                     </li>
-                    {{end}}
-                    {{end}}
+                    {{- end}}
+                    {{- end}}
+                </ul>
+            </div>
+
+            <div class="toc-group">
+                <div class="toc-group-title">Ignored</div>
+                <ul class="toc-list">
+                    {{- range $index, $cat := .Categories}}
+                    {{- if eq $cat.Status "ignored"}}
+                    <li class="toc-item toc-status-ignored">
+                        <a href="#cat-{{$index}}">
+                            <span>⏸️ {{$cat.Name}}</span>
+                            <span>Ignored</span>
+                        </a>
+                    </li>
+                    {{- end}}
+                    {{- end}}
                 </ul>
             </div>
         </aside>
@@ -105,39 +124,39 @@
         <main class="main-content">
             <h1>Build Grading Report</h1>
             <div class="summary">
-                <h2>Overall Output Grade</h2>
+                <h2>Overall {{.AppName}} App Grade</h2>
                 <div class="score">{{printf "%.2f" .Percentage}}%</div>
                 <p><b>Unweighted Score:</b> {{.UnweightedScore}} / {{.UnweightedMaxScore}} </p>
                 <p><b>Total Weight Value:</b> {{.TotalWeight}}<br/>Target Directory: <code>{{.TargetDirectory}}</code></p>
             </div>
 
             <h2>Category Breakdown</h2>
-            {{range $index, $cat := .Categories}}
-            <details id="cat-{{$index}}" class="category category-status-{{.Status}}" {{if ne .Status "pass"}}open{{end}}>
+            {{- range $index, $cat := .Categories}}
+            <details id="cat-{{$index}}" class="category category-status-{{.Status}}" {{- if and (ne .Status "pass") (ne .Status "ignored")}} open{{- end}}>
                 <summary class="category-header">
-                    <span class="category-name"><span class="dropdown-arrow">▶</span><span class="status-icon">{{if eq .Status "pass"}}✅{{else if eq .Status "warning"}}⚠️{{else}}❌{{end}}</span>{{.Name}}</span>
-                    <span class="category-score">{{.Score}} / {{.MaxScore}} | W: {{.Weight}} ({{printf "%.1f" .WeightPercentage}}%)</span>
+                    <span class="category-name"><span class="dropdown-arrow">▶</span><span class="status-icon">{{if eq .Status "pass"}}✅{{else if eq .Status "warning"}}⚠️{{else if eq .Status "ignored"}}⏸️{{else}}❌{{end}}</span>{{.Name}}{{if eq .Status "ignored"}} (Ignored){{end}}</span>
+                    <span class="category-score">{{.Score}} / {{.MaxScore}} | W: {{.Weight}} ({{printf "%.1f" .WeightPercentage}}%){{if eq .Status "ignored"}} (Ignored){{end}}</span>
                 </summary>
                 
                 <div class="category-content">
-            <p>{{.Description}}</p>
-            <div class="details">{{.Details}}</div>
-            
-            <div class="line-items">
-                {{range .LineItems}}
-                <div class="line-item status-{{.Status}}">
-                    <div class="line-item-header">
-                        <span><span class="status-icon">{{if eq .Status "pass"}}✅{{else if eq .Status "warning"}}⚠️{{else}}❌{{end}}</span>{{.Name}}</span>
-                        <span>{{.Score}} / {{.MaxScore}}</span>
+                    <p>{{.Description}}</p>
+                    <div class="details">{{.Details}}</div>
+                    
+                    <div class="line-items">
+                        {{- range .LineItems}}
+                        <div class="line-item status-{{.Status}}">
+                            <div class="line-item-header">
+                                <span><span class="status-icon">{{if eq .Status "pass"}}✅{{else if eq .Status "warning"}}⚠️{{else if eq .Status "ignored"}}⏸️{{else}}❌{{end}}</span>{{.Name}}{{if eq .Status "ignored"}} (Ignored){{end}}</span>
+                                <span>{{if eq .Status "ignored"}}Ignored ({{.Score}} / {{.MaxScore}}){{else}}{{.Score}} / {{.MaxScore}}{{end}}</span>
+                            </div>
+                            <div class="line-item-desc">{{.Description}}</div>
+                            {{- if .Details}}<div class="line-item-details">{{.Details}}</div>{{- end}}
+                        </div>
+                        {{- end}}
                     </div>
-                    <div class="line-item-desc">{{.Description}}</div>
-                    {{if .Details}}<div class="line-item-details">{{.Details}}</div>{{end}}
                 </div>
-                {{end}}
-            </div>
-        </div>
-    </details>
-    {{end}}
+            </details>
+        {{- end}}
         </main>
     </div>
 </body>

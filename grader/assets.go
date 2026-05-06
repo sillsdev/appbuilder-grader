@@ -9,7 +9,6 @@ func (g *Grader) checkAssets() models.Category {
 	cat := models.Category{
 		Name:        "Assets",
 		Description: "Checks for required graphical and media assets.",
-		MaxScore:    10.0,
 		Weight:      1.0,
 		LineItems:   make([]models.LineItem, 0),
 	}

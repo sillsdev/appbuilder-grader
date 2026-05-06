@@ -11,7 +11,6 @@ func (g *Grader) checkFileStructure() models.Category {
 	cat := models.Category{
 		Name:        "File Structure",
 		Description: "Checks if the standard build output files are present.",
-		MaxScore:    10.0,
 		Weight:      2.0,
 		LineItems:   make([]models.LineItem, 0),
 	}
@@ -52,12 +51,22 @@ func (g *Grader) checkFileStructure() models.Category {
 	score += jsItem.Score
 	cat.LineItems = append(cat.LineItems, jsItem)
 
+	// Line Item 3 (Ignored Item Example)
+	ignoreItem := models.LineItem{
+		Name:        "Optional Sourcemaps",
+		Description: "Check for optional .map files",
+		MaxScore:    5.0,
+		Status:      "ignored",
+		Details:     "Sourcemaps check disabled in this environment.",
+	}
+	cat.LineItems = append(cat.LineItems, ignoreItem)
+
 	cat.Score = score
-	if score == cat.MaxScore {
+	if score == 10.0 { // score max calculated value
 		cat.Details = "All required files found."
 	} else {
 		cat.Details = "Some required files are missing."
 	}
-	
+
 	return cat
 }
