@@ -6,8 +6,8 @@ import (
 
 func (g *Grader) checkMiscellaneous() models.Category {
 	cat := models.Category{
-		Name:        "Thinking Beyond",
-		Description: "Checks for availability outside just the standard app",
+		Name:        "categories.thinking_beyond_name",
+		Description: "categories.thinking_beyond_desc",
 		Weight:      1.0,
 		LineItems:   make([]models.LineItem, 0),
 	}
@@ -21,36 +21,36 @@ func (g *Grader) checkMiscellaneous() models.Category {
 
 func (g *Grader) checkWebSiteText() models.LineItem {
 	item := models.LineItem{
-		Name:        "Web Site Text",
-		Description: "Text available through web site (0=None, 1=Online, 2=Online with synchronized audio)",
+		Name:        "line_items.web_site_text_name",
+		Description: "line_items.web_site_text_desc",
 		MaxScore:    2.0,
 	}
 	item.Score = 0.0
 	item.Status = "ignored"
-	item.Details = "Not implemented yet"
+	item.Details = "details.not_implemented_yet"
 	return item
 }
 
 func (g *Grader) checkDBLText() models.LineItem {
 	item := models.LineItem{
-		Name:        "DBL Text",
-		Description: "Text in DBL available for other Paratext users (0=No, 1=Yes)",
+		Name:        "line_items.dbl_text_name",
+		Description: "line_items.dbl_text_desc",
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
 	item.Status = "ignored"
-	item.Details = "Not implemented yet"
+	item.Details = "details.not_implemented_yet"
 	return item
 }
 
 func (g *Grader) checkYouVersionText() models.LineItem {
 	item := models.LineItem{
-		Name:        "YouVersion Text",
-		Description: "Text available in YouVersion app (0=No, 1=Yes)",
+		Name:        "line_items.youversion_text_name",
+		Description: "line_items.youversion_text_desc",
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
 	item.Status = "ignored"
-	item.Details = "Not implemented yet"
+	item.Details = "details.not_implemented_yet"
 	return item
 }

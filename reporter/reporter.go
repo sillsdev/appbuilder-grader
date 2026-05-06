@@ -1,6 +1,7 @@
 package reporter
 
 import (
+	"appbuilder-grader/loc"
 	"appbuilder-grader/models"
 	_ "embed"
 	"encoding/json"
@@ -23,7 +24,11 @@ var HTMLTemplate string
 
 // WriteHTML outputs the grading report to an HTML file
 func WriteHTML(report *models.Report, outputPath string) error {
-	tmpl, err := template.New("report").Parse(HTMLTemplate)
+	funcMap := template.FuncMap{
+		"t": loc.T,
+	}
+
+	tmpl, err := template.New("report").Funcs(funcMap).Parse(HTMLTemplate)
 	if err != nil {
 		return err
 	}

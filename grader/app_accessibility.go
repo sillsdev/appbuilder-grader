@@ -6,8 +6,8 @@ import (
 
 func (g *Grader) checkAccessibility() models.Category {
 	cat := models.Category{
-		Name:        "App Accessibility",
-		Description: "Checks how the app is shared and distributed",
+		Name:        "categories.app_accessibility_name",
+		Description: "categories.app_accessibility_desc",
 		Weight:      1.0,
 		LineItems:   make([]models.LineItem, 0),
 	}
@@ -22,48 +22,48 @@ func (g *Grader) checkAccessibility() models.Category {
 
 func (g *Grader) checkShareable() models.LineItem {
 	item := models.LineItem{
-		Name:        "Shareable One-to-One",
-		Description: "App is shareable one-to-one (0=No, 1=Yes)",
+		Name:        "line_items.shareable_one_to_one_name",
+		Description: "line_items.shareable_one_to_one_desc",
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
 	item.Status = "ignored"
-	item.Details = "Not implemented yet"
+	item.Details = "details.not_implemented_yet"
 	return item
 }
 
 func (g *Grader) checkSDCardAvailability() models.LineItem {
 	item := models.LineItem{
-		Name:        "SD Card Availability",
-		Description: "Available on SD cards locally (0=No, 1=Yes)",
+		Name:        "line_items.sd_card_availability_name",
+		Description: "line_items.sd_card_availability_desc",
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
 	item.Status = "ignored"
-	item.Details = "Not implemented yet"
+	item.Details = "details.not_implemented_yet"
 	return item
 }
 
 func (g *Grader) checkDirectLinks() models.LineItem {
 	item := models.LineItem{
-		Name:        "Direct Links",
-		Description: "Available directly through other websites/links (0=No, 1=Yes)",
+		Name:        "line_items.direct_links_name",
+		Description: "line_items.direct_links_desc",
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
 	item.Status = "ignored"
-	item.Details = "Not implemented yet"
+	item.Details = "details.not_implemented_yet"
 	return item
 }
 
 func (g *Grader) checkPlayStorePublishing() models.LineItem {
 	item := models.LineItem{
-		Name:        "Play Store Publishing",
-		Description: "Published on Google PlayStore (0=No, 1=Local account, 2=SIL/Kalaam media)",
+		Name:        "line_items.play_store_publishing_name",
+		Description: "line_items.play_store_publishing_desc",
 		MaxScore:    2.0,
 	}
 	item.Score = 0.0
 	item.Status = "ignored"
-	item.Details = "Not implemented yet"
+	item.Details = "details.not_implemented_yet"
 	return item
 }

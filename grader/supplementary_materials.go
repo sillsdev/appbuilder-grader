@@ -6,8 +6,8 @@ import (
 
 func (g *Grader) checkSupplementaryMaterials() models.Category {
 	cat := models.Category{
-		Name:        "Supplementary Materials",
-		Description: "Evaluate the presence and quality of supplementary materials (ex. glossary, illustrations, reading plan, etc)",
+		Name:        "categories.supplementary_materials_name",
+		Description: "categories.supplementary_materials_desc",
 		Weight:      1.0,
 	}
 
@@ -28,12 +28,12 @@ func (g *Grader) checkGlossary() models.LineItem {
 	// 3=Linked glossary with illustrations
 
 	return models.LineItem{
-		Name:        "Glossary",
-		Description: "Check for presence and quality of glossary",
+		Name:        "line_items.glossary_name",
+		Description: "line_items.glossary_desc",
 		Score:       0.0,
 		MaxScore:    3.0,
 		Status:      "ignored",
-		Details:     "Glossary check not implemented yet",
+		Details:     "details.glossary_details",
 	}
 }
 
@@ -43,44 +43,44 @@ func (g *Grader) checkIllustrations() models.LineItem {
 	// 2=Colour illustrations
 
 	return models.LineItem{
-		Name:        "Illustrations",
-		Description: "Check for presence and quality of illustrations",
+		Name:        "line_items.illustrations_name",
+		Description: "line_items.illustrations_desc",
 		Score:       0.0,
 		MaxScore:    2.0,
 		Status:      "ignored",
-		Details:     "Illustrations check not implemented yet",
+		Details:     "details.illustrations_details",
 	}
 }
 
 func (g *Grader) checkTopicalIndex() models.LineItem {
 	return models.LineItem{
-		Name:        "Topical Index",
-		Description: "Check for presence of topical index",
+		Name:        "line_items.topical_index_name",
+		Description: "line_items.topical_index_desc",
 		Score:       0.0,
 		MaxScore:    1.0,
 		Status:      "ignored",
-		Details:     "Topical index check not implemented yet",
+		Details:     "details.topical_index_details",
 	}
 }
 
 func (g *Grader) checkReadingPlan() models.LineItem {
 	return models.LineItem{
-		Name:        "Reading Plan",
-		Description: "Check for presence of daily reading plan",
+		Name:        "line_items.reading_plan_name",
+		Description: "line_items.reading_plan_desc",
 		Score:       0.0,
 		MaxScore:    1.0,
 		Status:      "ignored",
-		Details:     "Reading plan check not implemented yet",
+		Details:     "details.reading_plan_details",
 	}
 }
 
 func (g *Grader) checkStudyBibleMaterial() models.LineItem {
 	return models.LineItem{
-		Name:        "Study Bible Material",
-		Description: "Check for presence of study Bible material (ex. notes, maps, charts, etc)",
+		Name:        "line_items.study_bible_material_name",
+		Description: "line_items.study_bible_material_desc",
 		Score:       0.0,
 		MaxScore:    1.0,
 		Status:      "ignored",
-		Details:     "Study Bible material check not implemented yet",
+		Details:     "details.study_bible_material_details",
 	}
 }

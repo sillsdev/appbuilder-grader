@@ -6,8 +6,8 @@ import (
 
 func (g *Grader) checkUserEngagement() models.Category {
 	cat := models.Category{
-		Name:        "User Engagement",
-		Description: "Checks for user engagement and feedback features",
+		Name:        "categories.user_engagement_name",
+		Description: "categories.user_engagement_desc",
 		Weight:      1.0,
 		LineItems:   make([]models.LineItem, 0),
 	}
@@ -23,60 +23,60 @@ func (g *Grader) checkUserEngagement() models.Category {
 
 func (g *Grader) checkAnalytics() models.LineItem {
 	item := models.LineItem{
-		Name:        "Analytics",
-		Description: "Analytics being monitored (0=No, 1=Yes)",
+		Name:        "line_items.analytics_name",
+		Description: "line_items.analytics_desc",
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
 	item.Status = "ignored"
-	item.Details = "Not implemented yet"
+	item.Details = "details.not_implemented_yet"
 	return item
 }
 
 func (g *Grader) checkTextFeedback() models.LineItem {
 	item := models.LineItem{
-		Name:        "Text Feedback",
-		Description: "Text editable for feedback by email (0=No, 1=Yes)",
+		Name:        "line_items.text_feedback_name",
+		Description: "line_items.text_feedback_desc",
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
 	item.Status = "ignored"
-	item.Details = "Not implemented yet"
+	item.Details = "details.not_implemented_yet"
 	return item
 }
 
 func (g *Grader) checkFurtherInfoLink() models.LineItem {
 	item := models.LineItem{
-		Name:        "Further Info Link",
-		Description: "Link for further information (0=No, 1=Yes)",
+		Name:        "line_items.further_info_link_name",
+		Description: "line_items.further_info_link_desc",
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
 	item.Status = "ignored"
-	item.Details = "Not implemented yet"
+	item.Details = "details.not_implemented_yet"
 	return item
 }
 
 func (g *Grader) checkContactDetails() models.LineItem {
 	item := models.LineItem{
-		Name:        "Contact Details",
-		Description: "Contact details for follow-up like phone, email or website (0=No, 1=Yes)",
+		Name:        "line_items.contact_details_name",
+		Description: "line_items.contact_details_desc",
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
 	item.Status = "ignored"
-	item.Details = "Not implemented yet"
+	item.Details = "details.not_implemented_yet"
 	return item
 }
 
 func (g *Grader) checkDeepLinking() models.LineItem {
 	item := models.LineItem{
-		Name:        "Deep Linking",
-		Description: "Deep Linking implemented (0=No, 1=Yes)",
+		Name:        "line_items.deep_linking_name",
+		Description: "line_items.deep_linking_desc",
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
 	item.Status = "ignored"
-	item.Details = "Not implemented yet"
+	item.Details = "details.not_implemented_yet"
 	return item
 }

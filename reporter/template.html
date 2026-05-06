@@ -62,7 +62,7 @@
                     {{- if eq $cat.Status "error"}}
                     <li class="toc-item toc-status-error">
                         <a href="#cat-{{$index}}">
-                            <span>❌ {{$cat.Name}}</span>
+                            <span>❌ {{t $cat.Name}}</span>
                             <span>{{$cat.Score}}/{{$cat.MaxScore}}</span>
                         </a>
                     </li>
@@ -78,7 +78,7 @@
                     {{- if eq $cat.Status "warning"}}
                     <li class="toc-item toc-status-warning">
                         <a href="#cat-{{$index}}">
-                            <span>⚠️ {{$cat.Name}}</span>
+                            <span>⚠️ {{t $cat.Name}}</span>
                             <span>{{$cat.Score}}/{{$cat.MaxScore}}</span>
                         </a>
                     </li>
@@ -94,7 +94,7 @@
                     {{- if eq $cat.Status "pass"}}
                     <li class="toc-item toc-status-pass">
                         <a href="#cat-{{$index}}">
-                            <span>✅ {{$cat.Name}}</span>
+                            <span>✅ {{t $cat.Name}}</span>
                             <span>{{$cat.Score}}/{{$cat.MaxScore}}</span>
                         </a>
                     </li>
@@ -110,7 +110,7 @@
                     {{- if eq $cat.Status "ignored"}}
                     <li class="toc-item toc-status-ignored">
                         <a href="#cat-{{$index}}">
-                            <span>⏸️ {{$cat.Name}}</span>
+                            <span>⏸️ {{t $cat.Name}}</span>
                             <span>Ignored</span>
                         </a>
                     </li>
@@ -134,23 +134,23 @@
             {{- range $index, $cat := .Categories}}
             <details id="cat-{{$index}}" class="category category-status-{{.Status}}" {{- if and (ne .Status "pass") (ne .Status "ignored")}} open{{- end}}>
                 <summary class="category-header">
-                    <span class="category-name"><span class="dropdown-arrow">▶</span><span class="status-icon">{{if eq .Status "pass"}}✅{{else if eq .Status "warning"}}⚠️{{else if eq .Status "ignored"}}⏸️{{else}}❌{{end}}</span>{{.Name}}{{if eq .Status "ignored"}} (Ignored){{end}}</span>
+                    <span class="category-name"><span class="dropdown-arrow">▶</span><span class="status-icon">{{if eq .Status "pass"}}✅{{else if eq .Status "warning"}}⚠️{{else if eq .Status "ignored"}}⏸️{{else}}❌{{end}}</span>{{t .Name}}{{if eq .Status "ignored"}} (Ignored){{end}}</span>
                     <span class="category-score">{{.Score}} / {{.MaxScore}} | W: {{.Weight}} ({{printf "%.1f" .WeightPercentage}}%){{if eq .Status "ignored"}} (Ignored){{end}}</span>
                 </summary>
                 
                 <div class="category-content">
-                    <p>{{.Description}}</p>
-                    <div class="details">{{.Details}}</div>
+                    <p>{{t .Description}}</p>
+                    <div class="details">{{t .Details}}</div>
                     
                     <div class="line-items">
                         {{- range .LineItems}}
                         <div class="line-item status-{{.Status}}">
                             <div class="line-item-header">
-                                <span><span class="status-icon">{{if eq .Status "pass"}}✅{{else if eq .Status "warning"}}⚠️{{else if eq .Status "ignored"}}⏸️{{else}}❌{{end}}</span>{{.Name}}{{if eq .Status "ignored"}} (Ignored){{end}}</span>
+                                <span><span class="status-icon">{{if eq .Status "pass"}}✅{{else if eq .Status "warning"}}⚠️{{else if eq .Status "ignored"}}⏸️{{else}}❌{{end}}</span>{{t .Name}}{{if eq .Status "ignored"}} (Ignored){{end}}</span>
                                 <span>{{if eq .Status "ignored"}}Ignored ({{.Score}} / {{.MaxScore}}){{else}}{{.Score}} / {{.MaxScore}}{{end}}</span>
                             </div>
-                            <div class="line-item-desc">{{.Description}}</div>
-                            {{- if .Details}}<div class="line-item-details">{{.Details}}</div>{{- end}}
+                            <div class="line-item-desc">{{t .Description}}</div>
+                            {{- if .Details}}<div class="line-item-details">{{t .Details}}</div>{{- end}}
                         </div>
                         {{- end}}
                     </div>

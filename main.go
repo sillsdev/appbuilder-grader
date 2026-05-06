@@ -2,6 +2,7 @@ package main
 
 import (
 	"appbuilder-grader/grader"
+	"appbuilder-grader/loc"
 	"appbuilder-grader/reporter"
 	"flag"
 	"fmt"
@@ -13,6 +14,7 @@ import (
 func main() {
 	targetDir := flag.String("dir", "", "The target directory containing the build output to grade")
 	outputDir := flag.String("out", "out", "The directory to save the output reports")
+	lang := flag.String("lang", "en", "The language to use for the report (default en)")
 	
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "Usage of AppBuilder Grader:\n")
@@ -20,6 +22,10 @@ func main() {
 	}
 
 	flag.Parse()
+
+	if err := loc.Init(*lang); err != nil {
+		log.Printf("Warning: Failed to load language '%s': %v\n", *lang, err)
+	}
 
 	if *targetDir == "" {
 		fmt.Println("Error: Target directory is required.")
