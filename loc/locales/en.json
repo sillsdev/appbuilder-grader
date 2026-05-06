@@ -26,7 +26,14 @@
     "red_letter_text_details": "No Red Letter (words of Jesus) option available",
     "study_bible_material_details": "Study Bible material check not implemented yet",
     "topical_index_details": "Topical index check not implemented yet",
-    "not_implemented_yet": "Not implemented yet"
+    "not_implemented_yet": "Not implemented yet",
+    "no_books_found": "No books found in appdef",
+    "found_books_not_nt_ot": "Found %d books in appdef, not from NT or OT",
+    "found_nt_ot_books": "Found %d NT books and %d OT books in appdef",
+    "all_nt_no_ot": "All 27 NT books found in appdef, without OT books",
+    "all_nt_plus_other": "All 27 NT books found in appdef, plus %d other books",
+    "all_ot_nt": "All OT and NT books found in appdef",
+    "red_letter_available": "Red Letter (words of Jesus) option available"
   },
   "line_items": {
     "about_box_in_vernacular_desc": "About box information in vernacular language (not just English) (0=No, 1=Yes)",

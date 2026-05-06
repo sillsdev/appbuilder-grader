@@ -72,7 +72,7 @@ func (g *Grader) Evaluate() (*models.Report, error) {
 	for i := range categories {
 		c := &categories[i]
 		
-		status := "pass"
+		status := models.StatusPass
 		if c.Status != "" {
 			status = c.Status
 		}
@@ -81,7 +81,7 @@ func (g *Grader) Evaluate() (*models.Report, error) {
 		activeItems := 0
 
 		for _, li := range c.LineItems {
-			if li.Status == "ignored" {
+			if li.Status == models.StatusIgnored {
 				continue
 			}
 			activeItems++
@@ -89,10 +89,10 @@ func (g *Grader) Evaluate() (*models.Report, error) {
 			computedMax += li.MaxScore
 
 			if c.Status == "" {
-				if li.Status == "error" {
-					status = "error"
-				} else if li.Status == "warning" && status != "error" {
-					status = "warning"
+				if li.Status == models.StatusError {
+					status = models.StatusError
+				} else if li.Status == models.StatusWarning && status != models.StatusError {
+					status = models.StatusWarning
 				}
 			}
 		}
@@ -102,16 +102,16 @@ func (g *Grader) Evaluate() (*models.Report, error) {
 
 		if c.Status == "" {
 			if activeItems == 0 && len(c.LineItems) > 0 {
-				status = "ignored"
+				status = models.StatusIgnored
 			} else {
-				if status == "pass" && c.Score < c.MaxScore {
-					status = "warning"
+				if status == models.StatusPass && c.Score < c.MaxScore {
+					status = models.StatusWarning
 				}
 			}
 			c.Status = status
 		}
 
-		if c.Status == "ignored" {
+		if c.Status == models.StatusIgnored {
 			continue
 		}
 
@@ -125,7 +125,7 @@ func (g *Grader) Evaluate() (*models.Report, error) {
 	// Second pass: calculate percentages and aggregates
 	for i := range categories {
 		c := &categories[i]
-		if c.Status == "ignored" {
+		if c.Status == models.StatusIgnored {
 			c.WeightPercentage = 0
 			continue
 		}

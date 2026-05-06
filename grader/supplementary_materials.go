@@ -32,7 +32,7 @@ func (g *Grader) checkGlossary() models.LineItem {
 		Description: "line_items.glossary_desc",
 		Score:       0.0,
 		MaxScore:    3.0,
-		Status:      "ignored",
+		Status:      models.StatusIgnored,
 		Details:     "details.glossary_details",
 	}
 }
@@ -47,7 +47,7 @@ func (g *Grader) checkIllustrations() models.LineItem {
 		Description: "line_items.illustrations_desc",
 		Score:       0.0,
 		MaxScore:    2.0,
-		Status:      "ignored",
+		Status:      models.StatusIgnored,
 		Details:     "details.illustrations_details",
 	}
 }
@@ -58,7 +58,7 @@ func (g *Grader) checkTopicalIndex() models.LineItem {
 		Description: "line_items.topical_index_desc",
 		Score:       0.0,
 		MaxScore:    1.0,
-		Status:      "ignored",
+		Status:      models.StatusIgnored,
 		Details:     "details.topical_index_details",
 	}
 }
@@ -69,7 +69,7 @@ func (g *Grader) checkReadingPlan() models.LineItem {
 		Description: "line_items.reading_plan_desc",
 		Score:       0.0,
 		MaxScore:    1.0,
-		Status:      "ignored",
+		Status:      models.StatusIgnored,
 		Details:     "details.reading_plan_details",
 	}
 }
@@ -80,7 +80,7 @@ func (g *Grader) checkStudyBibleMaterial() models.LineItem {
 		Description: "line_items.study_bible_material_desc",
 		Score:       0.0,
 		MaxScore:    1.0,
-		Status:      "ignored",
+		Status:      models.StatusIgnored,
 		Details:     "details.study_bible_material_details",
 	}
 }

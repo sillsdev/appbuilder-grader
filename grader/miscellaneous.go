@@ -26,7 +26,7 @@ func (g *Grader) checkWebSiteText() models.LineItem {
 		MaxScore:    2.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -38,7 +38,7 @@ func (g *Grader) checkDBLText() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -50,7 +50,7 @@ func (g *Grader) checkYouVersionText() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }

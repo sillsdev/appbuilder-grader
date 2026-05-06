@@ -30,7 +30,7 @@ func (g *Grader) checkAppDescription() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -42,7 +42,7 @@ func (g *Grader) checkLocalizedDescriptionLWC() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -54,7 +54,7 @@ func (g *Grader) checkLocalizedDescriptionVernacular() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -66,7 +66,7 @@ func (g *Grader) checkPhoneScreenshots() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -78,7 +78,7 @@ func (g *Grader) checkTabletScreenshots() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -90,7 +90,7 @@ func (g *Grader) checkEnhancedScreenshots() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -102,7 +102,7 @@ func (g *Grader) checkDemoVideo() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }

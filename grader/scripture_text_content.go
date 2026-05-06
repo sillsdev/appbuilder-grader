@@ -2,7 +2,6 @@ package grader
 
 import (
 	"appbuilder-grader/models"
-	"fmt"
 )
 
 // Old Testament Books:
@@ -44,8 +43,8 @@ func (g *Grader) checkContentPresence() models.LineItem {
 	}
 
 	contentItem.Score = 0.0
-	contentItem.Status = "error"
-	contentItem.Details = "No books found in appdef"
+	contentItem.Status = models.StatusError
+	contentItem.Details = "details.no_books_found"
 
 	// Check for book completeness
 	includedNTBooks := make(map[string]bool)
@@ -78,8 +77,9 @@ func (g *Grader) checkContentPresence() models.LineItem {
 	// Check if any books are present
 	if len(g.AppDef.Books) > 0 {
 		contentItem.Score = 1.0
-		contentItem.Status = "warning"
-		contentItem.Details = fmt.Sprintf("Found %d books in appdef, not from NT or OT", len(g.AppDef.Books))
+		contentItem.Status = models.StatusWarning
+		contentItem.Details = "details.found_books_not_nt_ot"
+		contentItem.DetailsArgs = []any{len(g.AppDef.Books)}
 	} else {
 		return contentItem
 	}
@@ -87,8 +87,9 @@ func (g *Grader) checkContentPresence() models.LineItem {
 	// Check for portions of NT or OT
 	if ntCount > 0 || otCount > 0 {
 		contentItem.Score = 1.5
-		contentItem.Status = "pass"
-		contentItem.Details = fmt.Sprintf("Found %d NT books and %d OT books in appdef", ntCount, otCount)
+		contentItem.Status = models.StatusPass
+		contentItem.Details = "details.found_nt_ot_books"
+		contentItem.DetailsArgs = []any{ntCount, otCount}
 	} else {
 		return contentItem
 	}
@@ -96,7 +97,7 @@ func (g *Grader) checkContentPresence() models.LineItem {
 	// Check for full NT (27 books)
 	if ntCount == len(AllNTBooks) {
 		contentItem.Score = 2.0
-		contentItem.Details = "All 27 NT books found in appdef, without OT books"
+		contentItem.Details = "details.all_nt_no_ot"
 	} else {
 		return contentItem
 	}
@@ -104,7 +105,8 @@ func (g *Grader) checkContentPresence() models.LineItem {
 	// Check for OT portions
 	if otCount > 0 {
 		contentItem.Score = 3.0
-		contentItem.Details = fmt.Sprintf("All 27 NT books found in appdef, plus %d other books", len(g.AppDef.Books)-len(AllNTBooks))
+		contentItem.Details = "details.all_nt_plus_other"
+		contentItem.DetailsArgs = []any{len(g.AppDef.Books) - len(AllNTBooks)}
 	} else {
 		return contentItem
 	}
@@ -112,7 +114,7 @@ func (g *Grader) checkContentPresence() models.LineItem {
 	// Check for full OT (39 books)
 	if otCount == len(AllOTBooks) {
 		contentItem.Score = 4.0
-		contentItem.Details = "All OT and NT books found in appdef"
+		contentItem.Details = "details.all_ot_nt"
 	} else {
 		return contentItem
 	}
@@ -130,7 +132,7 @@ func (g *Grader) checkClickableReferences() models.LineItem {
 		Description: "line_items.clickable_references_desc",
 		Score:       0.0,
 		MaxScore:    1.0,
-		Status:      "ignored",
+		Status:      models.StatusIgnored,
 		Details:     "details.clickable_references_details",
 	}
 }
@@ -147,7 +149,7 @@ func (g *Grader) checkMultilingualScripts() models.LineItem {
 		Description: "line_items.multilingual_scripts_desc",
 		Score:       0.0,
 		MaxScore:    3.0,
-		Status:      "ignored",
+		Status:      models.StatusIgnored,
 		Details:     "details.multilingual_scripts_details",
 	}
 }
@@ -158,15 +160,15 @@ func (g *Grader) checkRedLetterText() models.LineItem {
 		Description: "line_items.red_letter_text_desc",
 		Score:       0.0,
 		MaxScore:    1.0,
-		Status:      "warning",
+		Status:      models.StatusWarning,
 		Details:     "details.red_letter_text_details",
 	}
 	// if g.AppDef.Features includes feature with name "show-red-letter"
 	for _, feature := range g.AppDef.Features.Feature {
 		if feature.Name == "show-red-letters" {
 			redLetterItem.Score = 1.0
-			redLetterItem.Status = "pass"
-			redLetterItem.Details = "Red Letter (words of Jesus) option available"
+			redLetterItem.Status = models.StatusPass
+			redLetterItem.Details = "details.red_letter_available"
 			break
 		}
 	}

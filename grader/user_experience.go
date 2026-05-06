@@ -32,7 +32,7 @@ func (g *Grader) checkMenuNavigation() models.LineItem {
 		MaxScore:    2.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -44,7 +44,7 @@ func (g *Grader) checkKeyboard() models.LineItem {
 		MaxScore:    3.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -56,7 +56,7 @@ func (g *Grader) checkContentsMenu() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -68,7 +68,7 @@ func (g *Grader) checkCustomizedGraphics() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -80,7 +80,7 @@ func (g *Grader) checkAppropriateMenuOptions() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -92,7 +92,7 @@ func (g *Grader) checkStyleAdjustments() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -104,7 +104,7 @@ func (g *Grader) checkTextChanges() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -116,7 +116,7 @@ func (g *Grader) checkAboutBoxInfo() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -128,7 +128,7 @@ func (g *Grader) checkAboutBoxVernacular() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }

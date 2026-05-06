@@ -28,7 +28,7 @@ func (g *Grader) checkAnalytics() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -40,7 +40,7 @@ func (g *Grader) checkTextFeedback() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -52,7 +52,7 @@ func (g *Grader) checkFurtherInfoLink() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -64,7 +64,7 @@ func (g *Grader) checkContactDetails() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -76,7 +76,7 @@ func (g *Grader) checkDeepLinking() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }

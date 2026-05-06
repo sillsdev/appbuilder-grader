@@ -27,7 +27,7 @@ func (g *Grader) checkAudio() models.LineItem {
 		MaxScore:    3.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -39,7 +39,7 @@ func (g *Grader) checkStyleOfAudio() models.LineItem {
 		MaxScore:    2.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -51,7 +51,7 @@ func (g *Grader) checkSynchronizedHighlighting() models.LineItem {
 		MaxScore:    1.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }
@@ -63,7 +63,7 @@ func (g *Grader) checkVideo() models.LineItem {
 		MaxScore:    4.0,
 	}
 	item.Score = 0.0
-	item.Status = "ignored"
+	item.Status = models.StatusIgnored
 	item.Details = "details.not_implemented_yet"
 	return item
 }

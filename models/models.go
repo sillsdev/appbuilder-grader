@@ -1,13 +1,23 @@
 package models
 
+type Status string
+
+const (
+	StatusPass    Status = "pass"
+	StatusIgnored Status = "ignored"
+	StatusError   Status = "error"
+	StatusWarning Status = "warning"
+)
+
 // LineItem represents a specific check within a category
 type LineItem struct {
 	Name        string  `json:"name"`
 	Description string  `json:"description"`
 	Score       float64 `json:"score"`
 	MaxScore    float64 `json:"max_score"`
-	Status      string  `json:"status"`
+	Status      Status  `json:"status"`
 	Details     string  `json:"details"`
+	DetailsArgs []any   `json:"details_args,omitempty"`
 }
 
 // Category represents a specific grading area
@@ -21,9 +31,10 @@ type Category struct {
 	// Handled by grader automatically (calculated as Score/MaxScore * Weight)
 	WeightPercentage float64    `json:"weight_percentage"`
 	// Optional override, handled by grader automatically if not set (pass/warning/error/ignored)
-	Status           string     `json:"status"`
+	Status           Status     `json:"status"`
 	// Optional details or notes about the category
 	Details          string     `json:"details"`
+	DetailsArgs      []any      `json:"details_args,omitempty"`
 	LineItems        []LineItem `json:"line_items"`
 }
 

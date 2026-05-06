@@ -34,19 +34,28 @@ func Init(lang string) error {
 
 // T translates a key like "categories.multimedia_name" into the translated string.
 // If the key is not found, or there are no translations loaded, it returns the key.
-func T(key string) string {
-	if translations == nil {
-		return key
-	}
-	
-	parts := strings.SplitN(key, ".", 2)
-	if len(parts) == 2 {
-		if section, ok := translations[parts[0]]; ok {
-			if val, ok := section[parts[1]]; ok {
-				return val
+func T(key string, args ...any) string {
+	res := key
+	if translations != nil {
+		parts := strings.SplitN(key, ".", 2)
+		if len(parts) == 2 {
+			if section, ok := translations[parts[0]]; ok {
+				if val, ok := section[parts[1]]; ok {
+					res = val
+				}
 			}
 		}
 	}
-	
-	return key
+
+	if len(args) > 0 {
+		// Handle both variadic arguments and a single slice of arguments (which comes from the template passing a slice)
+		if len(args) == 1 {
+			if slice, ok := args[0].([]any); ok {
+				return fmt.Sprintf(res, slice...)
+			}
+		}
+		return fmt.Sprintf(res, args...)
+	}
+
+	return res
 }
