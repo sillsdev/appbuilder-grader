@@ -14,11 +14,15 @@ type LineItem struct {
 type Category struct {
 	Name             string     `json:"name"`
 	Description      string     `json:"description"`
+	// Handled by grader automatically (summed from line items)
 	Score            float64    `json:"score"`
 	MaxScore         float64    `json:"max_score"`
 	Weight           float64    `json:"weight"`
+	// Handled by grader automatically (calculated as Score/MaxScore * Weight)
 	WeightPercentage float64    `json:"weight_percentage"`
+	// Optional override, handled by grader automatically if not set (pass/warning/error/ignored)
 	Status           string     `json:"status"`
+	// Optional details or notes about the category
 	Details          string     `json:"details"`
 	LineItems        []LineItem `json:"line_items"`
 }

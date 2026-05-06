@@ -2,18 +2,49 @@ package grader
 
 import (
 	"appbuilder-grader/models"
+	"encoding/xml"
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
 // Grader handles the evaluation of a build directory
 type Grader struct {
 	TargetDir string
+	AppDef    models.AppDef
 }
 
 // NewGrader creates a new grader for the specified directory
 func NewGrader(targetDir string) *Grader {
+	// Open and parse appdef from targetDir/*.appDef (or *.appdef ?)
+	appDefPath := filepath.Join(targetDir, "*.appDef")
+	appDefFiles, _ := filepath.Glob(appDefPath)
+	if len(appDefFiles) > 0 {
+		// Parse the first found appdef file
+		appDefFile := appDefFiles[0]
+		appDef, err := parseAppDef(appDefFile)
+		if err == nil {
+			return &Grader{TargetDir: targetDir, AppDef: appDef}
+		}
+	}
 	return &Grader{TargetDir: targetDir}
+}
+
+func parseAppDef(appDefFile string) (models.AppDef, error) {
+	var appDef models.AppDef
+
+	file, err := os.Open(appDefFile)
+	if err != nil {
+		return appDef, fmt.Errorf("failed to open appdef file: %v", err)
+	}
+	defer file.Close()
+
+	decoder := xml.NewDecoder(file)
+	if err := decoder.Decode(&appDef); err != nil {
+		return appDef, fmt.Errorf("failed to parse appdef XML: %v", err)
+	}
+
+	return appDef, nil
 }
 
 // Evaluate runs all grading checks and returns a complete report
@@ -24,9 +55,14 @@ func (g *Grader) Evaluate() (*models.Report, error) {
 
 	// Calculate scores for various categories
 	categories := []models.Category{
-		g.checkFileStructure(),
-		g.checkAssets(),
-		g.checkManifests(),
+		g.checkScriptureTextContent(),
+		g.checkSupplementaryMaterials(),
+		g.checkMultimedia(),
+		g.checkUserExperience(),
+		g.checkUserEngagement(),
+		g.checkAccessibility(),
+		g.checkPlayStorePresence(),
+		g.checkMiscellaneous(),
 	}
 
 	// Calculate weighted total score
