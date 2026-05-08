@@ -185,9 +185,6 @@ func (g *Grader) checkClickableReferences() models.LineItem {
 		if isNTBook(bookFile.BookID) || isOTBook(bookFile.BookID) {
 			if hasClickableReference(readTextFile(bookFile.Path)) {
 				linkedFiles++
-			} else {
-				// For debugging, we could log which files are missing clickable references
-				fmt.Printf("Book file %s is missing clickable references\n", bookFile.Path)
 			}
 		} else {
 			nonStandardFiles++
