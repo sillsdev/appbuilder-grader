@@ -29,7 +29,7 @@
     "not_implemented_yet": "Not implemented yet",
     "no_book_files_found": "No book files found in project data",
     "clickable_references_missing": "Cross-reference links were not found in enough book files",
-    "clickable_references_coverage": "Found cross-reference link markers in %d of %d book files (%s%%)",
+    "clickable_references_coverage": "Found cross-reference link markers in %d of %d standard Bible book files (%s%%)",
     "multilingual_scripts_none": "No additional scripture scripts or languages detected",
     "multilingual_scripts_additional_scripts": "Detected %d scripts for the primary language across %d book collections",
     "multilingual_scripts_regional_language": "Detected %d scripture languages across %d book collections",

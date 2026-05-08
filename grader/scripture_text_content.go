@@ -179,14 +179,23 @@ func (g *Grader) checkClickableReferences() models.LineItem {
 	}
 
 	linkedFiles := 0
+	nonStandardFiles := 0
 	for _, bookFile := range bookFiles {
-		if hasClickableReference(readTextFile(bookFile.Path)) {
-			linkedFiles++
+		// Only check for clickable references in files that contain scripture text (i.e., not just front/back matter)
+		if isNTBook(bookFile.BookID) || isOTBook(bookFile.BookID) {
+			if hasClickableReference(readTextFile(bookFile.Path)) {
+				linkedFiles++
+			} else {
+				// For debugging, we could log which files are missing clickable references
+				fmt.Printf("Book file %s is missing clickable references\n", bookFile.Path)
+			}
+		} else {
+			nonStandardFiles++
 		}
 	}
 
-	percent := (float64(linkedFiles) / float64(len(bookFiles))) * 100
-	item.SetDetails("details.clickable_references_coverage", linkedFiles, len(bookFiles), fmt.Sprintf("%.1f", percent))
+	percent := (float64(linkedFiles) / float64(len(bookFiles) - nonStandardFiles)) * 100
+	item.SetDetails("details.clickable_references_coverage", linkedFiles, len(bookFiles) - nonStandardFiles, fmt.Sprintf("%.1f", percent))
 	if percent > 60 {
 		item.Score = 1.0
 		item.Status = models.StatusPass
@@ -321,6 +330,16 @@ func isNTBook(bookID string) bool {
 	bookID = strings.ToUpper(bookID)
 	for _, ntBook := range AllNTBooks {
 		if bookID == ntBook {
+			return true
+		}
+	}
+	return false
+}
+
+func isOTBook(bookID string) bool {
+	bookID = strings.ToUpper(bookID)
+	for _, otBook := range AllOTBooks {
+		if bookID == otBook {
 			return true
 		}
 	}
