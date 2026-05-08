@@ -45,13 +45,13 @@
 - [x] Implement play store publishing validation
 
 ## Play Store Presence
-- [ ] Implement app description validation
-- [ ] Implement localized description (LWC) validation
-- [ ] Implement localized description (vernacular) validation
-- [ ] Implement phone screenshots validation
-- [ ] Implement tablet screenshots validation
-- [ ] Implement enhanced screenshots validation
-- [ ] Implement demo video validation
+- [x] Implement app description validation
+- [x] Implement localized description (LWC) validation
+- [x] Implement localized description (vernacular) validation
+- [x] Implement phone screenshots validation
+- [x] Implement tablet screenshots validation
+- [x] Keep enhanced screenshots validation skipped
+- [x] Implement demo video validation
 
 ## Thinking Beyond
 - [ ] Implement website text validation
