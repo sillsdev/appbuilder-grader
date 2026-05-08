@@ -20,15 +20,15 @@
 - [x] Implement video content validation
 
 ## User Experience
-- [ ] Implement menu navigation validation
-- [ ] Implement keyboard navigation validation
-- [ ] Implement contents menu validation
-- [ ] Implement customized graphics validation
-- [ ] Implement appropriate menu options validation
-- [ ] Implement style adjustments validation
-- [ ] Implement text changes validation
-- [ ] Implement about box information validation
-- [ ] Implement about box vernacular validation
+- [x] Implement menu navigation validation
+- [x] Implement keyboard navigation validation
+- [x] Implement contents menu validation
+- [x] Implement customized graphics validation
+- [x] Keep appropriate menu options validation skipped
+- [x] Implement style adjustments validation
+- [x] Implement text changes validation
+- [x] Implement about box information validation
+- [x] Implement about box vernacular validation
 
 ## User Engagement
 - [ ] Implement analytics tracking validation

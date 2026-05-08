@@ -19,9 +19,8 @@ func (g *Grader) dataDir() string {
 		return ""
 	}
 
-	appDefFiles, err := filepath.Glob(filepath.Join(g.TargetDir, "*.appDef"))
-	if err == nil && len(appDefFiles) > 0 {
-		base := strings.TrimSuffix(filepath.Base(appDefFiles[0]), filepath.Ext(appDefFiles[0]))
+	if appDefPath := g.appDefPath(); appDefPath != "" {
+		base := strings.TrimSuffix(filepath.Base(appDefPath), filepath.Ext(appDefPath))
 		candidate := filepath.Join(g.TargetDir, base+"_data")
 		if isDir(candidate) {
 			return candidate
@@ -38,6 +37,25 @@ func (g *Grader) dataDir() string {
 		}
 	}
 	return ""
+}
+
+func (g *Grader) appDefPath() string {
+	if g.TargetDir == "" {
+		return ""
+	}
+	appDefFiles, err := filepath.Glob(filepath.Join(g.TargetDir, "*.appDef"))
+	if err != nil || len(appDefFiles) == 0 {
+		return ""
+	}
+	return appDefFiles[0]
+}
+
+func (g *Grader) appDefContent() string {
+	content, err := os.ReadFile(g.appDefPath())
+	if err != nil {
+		return ""
+	}
+	return string(content)
 }
 
 func (g *Grader) bookFiles() []projectBookFile {
