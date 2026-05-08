@@ -38,11 +38,11 @@
 - [x] Implement deep linking validation
 
 ## App Accessibility
-- [ ] Implement AppBuilder version check
-- [ ] Implement shareable one-to-one validation
-- [ ] Implement SD card availability validation
-- [ ] Implement direct links validation
-- [ ] Implement play store publishing validation
+- [x] Implement AppBuilder version check
+- [x] Implement shareable one-to-one validation
+- [x] Keep SD card availability validation skipped
+- [x] Implement direct links validation
+- [x] Implement play store publishing validation
 
 ## Play Store Presence
 - [ ] Implement app description validation
