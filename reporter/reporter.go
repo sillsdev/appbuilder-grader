@@ -26,6 +26,9 @@ var HTMLTemplate string
 func WriteHTML(report *models.Report, outputPath string) error {
 	funcMap := template.FuncMap{
 		"t": loc.T,
+		"safeHTML": func(s string) template.HTML {
+			return template.HTML(s)
+		},
 	}
 
 	tmpl, err := template.New("report").Funcs(funcMap).Parse(HTMLTemplate)

@@ -2,6 +2,7 @@ package grader
 
 import (
 	"appbuilder-grader/models"
+	"strings"
 )
 
 // Old Testament Books:
@@ -17,6 +18,16 @@ var AllNTBooks = []string{
 	"MAT", "MRK", "LUK", "JHN", "ACT", "ROM", "1CO", "2CO", "GAL", "EPH",
 	"PHP", "COL", "1TH", "2TH", "1TI", "2TI", "TIT", "PHM", "HEB", "JAS",
 	"1PE", "2PE", "1JN", "2JN", "3JN", "JUD", "REV",
+}
+
+// NOTE: Do we want all of these?
+// Miscellaneous books:
+var AllMiscBooks = []string{
+	"TOB", "JDT", "ESG", "WIS", "SIR", "BAR", "LJE", "S3Y", "SUS", "BEL",
+	"1MA", "2MA", "3MA", "4MA", "1ES", "2ES", "MAN", "PS2", "ODA", "PSS",
+	"EZA", "5EZ", "6EZ", "DAG", "PS3", "2BA", "LBA", "JUB", "ENO", "1MQ",
+	"2MQ", "3MQ", "REP", "4BA", "LAO", "FRT", "BAK", "OTH", "INT", "CNC",
+	"GLO", "TDX", "NDX", "XXA", "XXB", "XXC", "XXD", "XXE", "XXF", "XXG",
 }
 
 func (g *Grader) checkScriptureTextContent() models.Category {
@@ -44,7 +55,7 @@ func (g *Grader) checkContentPresence() models.LineItem {
 
 	contentItem.Score = 0.0
 	contentItem.Status = models.StatusError
-	contentItem.Details = "details.no_books_found"
+	contentItem.SetDetails("details.no_books_found")
 
 	// Check for book completeness
 	includedNTBooks := make(map[string]bool)
@@ -55,31 +66,55 @@ func (g *Grader) checkContentPresence() models.LineItem {
 	for _, book := range AllOTBooks {
 		includedOTBooks[book] = false
 	}
+	includedMiscBooks := make(map[string]bool)
+	for _, book := range AllMiscBooks {
+		includedMiscBooks[book] = false
+	}
 
 	ntCount := 0
 	otCount := 0
+	miscCount := 0
+	unknownCount := 0
+	unknownBooks := make(map[string]bool)
 
 	for _, bookCollection := range g.AppDef.Books {
-		for _, book := range bookCollection.Book {
-			if _, ok := includedNTBooks[book.Id]; ok {
-				if !includedNTBooks[book.Id] {
-					includedNTBooks[book.Id] = true
+		for _, bookOriginal := range bookCollection.Book {
+			book := strings.ToUpper(bookOriginal.Id)
+			if _, ok := includedNTBooks[book]; ok {
+				if !includedNTBooks[book] {
+					includedNTBooks[book] = true
 					ntCount++
 				}
-			} else if _, ok := includedOTBooks[book.Id]; ok {
-				if !includedOTBooks[book.Id] {
-					includedOTBooks[book.Id] = true
+			} else if _, ok := includedOTBooks[book]; ok {
+				if !includedOTBooks[book] {
+					includedOTBooks[book] = true
 					otCount++
+				}
+			} else if _, ok := includedMiscBooks[book]; ok {
+				if !includedMiscBooks[book] {
+					includedMiscBooks[book] = true
+					miscCount++
+				}
+			} else {
+				if !unknownBooks[book] {
+					unknownBooks[book] = true
+					unknownCount++
 				}
 			}
 		}
 	}
+
+	otherBooksList := make([]string, 0, len(unknownBooks))
+	for book := range unknownBooks {
+		otherBooksList = append(otherBooksList, book)
+	}
+	otherBooks := strings.Join(otherBooksList, ", ")
+
 	// Check if any books are present
 	if len(g.AppDef.Books) > 0 {
 		contentItem.Score = 1.0
 		contentItem.Status = models.StatusWarning
-		contentItem.Details = "details.found_books_not_nt_ot"
-		contentItem.DetailsArgs = []any{len(g.AppDef.Books)}
+		contentItem.SetDetails("details.found_books_not_nt_ot", len(g.AppDef.Books), otherBooks)
 	} else {
 		return contentItem
 	}
@@ -88,8 +123,7 @@ func (g *Grader) checkContentPresence() models.LineItem {
 	if ntCount > 0 || otCount > 0 {
 		contentItem.Score = 1.5
 		contentItem.Status = models.StatusPass
-		contentItem.Details = "details.found_nt_ot_books"
-		contentItem.DetailsArgs = []any{ntCount, otCount}
+		contentItem.SetDetails("details.found_nt_ot_books", ntCount, otCount, otherBooks)
 	} else {
 		return contentItem
 	}
@@ -97,7 +131,7 @@ func (g *Grader) checkContentPresence() models.LineItem {
 	// Check for full NT (27 books)
 	if ntCount == len(AllNTBooks) {
 		contentItem.Score = 2.0
-		contentItem.Details = "details.all_nt_no_ot"
+		contentItem.SetDetails("details.all_nt_no_ot", otherBooks)
 	} else {
 		return contentItem
 	}
@@ -105,8 +139,8 @@ func (g *Grader) checkContentPresence() models.LineItem {
 	// Check for OT portions
 	if otCount > 0 {
 		contentItem.Score = 3.0
-		contentItem.Details = "details.all_nt_plus_other"
-		contentItem.DetailsArgs = []any{len(g.AppDef.Books) - len(AllNTBooks)}
+		contentItem.SetDetails("details.all_nt_plus_other", otCount, miscCount, unknownCount, otherBooks)
+
 	} else {
 		return contentItem
 	}
@@ -114,9 +148,14 @@ func (g *Grader) checkContentPresence() models.LineItem {
 	// Check for full OT (39 books)
 	if otCount == len(AllOTBooks) {
 		contentItem.Score = 4.0
-		contentItem.Details = "details.all_ot_nt"
+		contentItem.SetDetails("details.all_ot_nt", miscCount)
 	} else {
 		return contentItem
+	}
+
+	if unknownCount > 0 {
+		contentItem.Score = 3.5
+		contentItem.SetDetails("details.all_ot_nt_plus_other", miscCount, unknownCount, otherBooks)
 	}
 
 	return contentItem

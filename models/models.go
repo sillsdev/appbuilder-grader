@@ -20,6 +20,12 @@ type LineItem struct {
 	DetailsArgs []any   `json:"details_args,omitempty"`
 }
 
+func (li *LineItem) SetDetails(details string, args ...any) {
+	// Set a line item's details and details args based on the provided arguments
+	li.Details = details
+	li.DetailsArgs = args
+}
+
 // Category represents a specific grading area
 type Category struct {
 	Name        string `json:"name"`

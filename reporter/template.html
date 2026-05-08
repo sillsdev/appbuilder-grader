@@ -140,7 +140,7 @@
                 
                 <div class="category-content">
                     <p>{{t .Description}}</p>
-                    <div class="details">{{t .Details .DetailsArgs}}</div>
+                    {{- if .Details}}<div class="details">{{t .Details .DetailsArgs | safeHTML }}</div>{{- end}}
                     
                     <div class="line-items">
                         {{- range .LineItems}}
@@ -150,7 +150,7 @@
                                 <span>{{if eq .Status "ignored"}}Ignored ({{.Score}} / {{.MaxScore}}){{else}}{{.Score}} / {{.MaxScore}}{{end}}</span>
                             </div>
                             <div class="line-item-desc">{{t .Description}}</div>
-                            {{- if .Details}}<div class="line-item-details">{{t .Details .DetailsArgs}}</div>{{- end}}
+                            {{- if .Details}}<div class="line-item-details">{{t .Details .DetailsArgs | safeHTML }}</div>{{- end}}
                         </div>
                         {{- end}}
                     </div>
