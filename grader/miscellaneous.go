@@ -20,7 +20,22 @@ func (g *Grader) checkMiscellaneous() models.Category {
 }
 
 func (g *Grader) checkWebSiteText() models.LineItem {
-	return createIgnoredItem("line_items.web_site_text_name", "line_items.web_site_text_desc", 2.0)
+	// Check feature export-html-pwa
+	item := models.LineItem{
+		Name:        "line_items.web_site_text_name",
+		Description: "line_items.web_site_text_desc",
+		MaxScore:    1.0,
+		Status:      models.StatusWarning,
+		Details:     "details.web_site_text_missing",
+	}
+
+	if g.hasFeatureValue("export-html-pwa", "true") {
+		item.Score = 1.0
+		item.Status = models.StatusPass
+		item.SetDetails("details.web_site_text_present")
+	}
+
+	return item
 }
 
 func (g *Grader) checkDBLText() models.LineItem {

@@ -125,7 +125,9 @@
     "all_nt_plus_other": "All 27 NT books found in appdef, plus %d OT books, %d miscellaneous books, and %d unrecognized books:<br>%s",
     "all_ot_nt": "All OT and NT books found in appdef, plus %d miscellaneous books",
     "all_ot_nt_plus_other": "All OT and NT books found in appdef, plus %d miscellaneous books and %d unrecognized books:<br>%s",
-    "red_letter_available": "Red Letter (words of Jesus) option available in %d NT book files"
+    "red_letter_available": "Red Letter (words of Jesus) option available in %d NT book files",
+    "web_site_text_missing": "No PWA export configuration found",
+    "web_site_text_present": "Found PWA export configuration"
   },
   "line_items": {
     "about_box_in_vernacular_desc": "About box information in vernacular language (not just English) (0=No, 1=Yes)",
@@ -208,7 +210,7 @@
     "topical_index_name": "Topical Index",
     "video_desc": "Checks video links/clips presence (0=No, 1=Jesus Film Luke, 2=captions not locally gradable, 3=other gospels, 4=other links)",
     "video_name": "Video",
-    "web_site_text_desc": "Text available through web site (0=None, 1=Online, 2=Online with synchronized audio)",
+    "web_site_text_desc": "Text available through web site (0=None, 1=Online)",
     "web_site_text_name": "Web Site Text",
     "youversion_text_desc": "Text available in YouVersion app (0=No, 1=Yes)",
     "youversion_text_name": "YouVersion Text"
