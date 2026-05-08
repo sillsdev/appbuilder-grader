@@ -31,11 +31,11 @@
 - [x] Implement about box vernacular validation
 
 ## User Engagement
-- [ ] Implement analytics tracking validation
-- [ ] Implement text feedback validation
-- [ ] Implement further info link validation
-- [ ] Implement contact details validation
-- [ ] Implement deep linking validation
+- [x] Implement analytics tracking validation
+- [x] Implement text feedback validation
+- [x] Implement further info link validation
+- [x] Implement contact details validation
+- [x] Implement deep linking validation
 
 ## App Accessibility
 - [ ] Implement AppBuilder version check
