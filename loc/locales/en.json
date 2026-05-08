@@ -27,6 +27,15 @@
     "study_bible_material_details": "Study Bible material check not implemented yet",
     "topical_index_details": "Topical index check not implemented yet",
     "not_implemented_yet": "Not implemented yet",
+    "no_book_files_found": "No book files found in project data",
+    "clickable_references_missing": "Cross-reference links were not found in enough book files",
+    "clickable_references_coverage": "Found cross-reference link markers in %d of %d book files (%s%%)",
+    "multilingual_scripts_none": "No additional scripture scripts or languages detected",
+    "multilingual_scripts_additional_scripts": "Detected %d scripts for the primary language across %d book collections",
+    "multilingual_scripts_regional_language": "Detected %d scripture languages across %d book collections",
+    "multilingual_scripts_back_translation": "Detected parallel/back translation evidence across %d book collections",
+    "red_letter_feature_missing": "No show-red-letters feature found in the app definition",
+    "red_letter_markers_missing": "show-red-letters feature is present, but no words-of-Jesus markers were found in NT book files",
     "no_books_found": "No books found in appdef",
     "found_books_not_nt_ot": "Found %d books in appdef. Unrecognized:<br>%s",
     "found_nt_ot_books": "Found %d NT books and %d OT books in appdef. Unrecognized:<br>%s",
@@ -34,7 +43,7 @@
     "all_nt_plus_other": "All 27 NT books found in appdef, plus %d OT books, %d miscellaneous books, and %d unrecognized books:<br>%s",
     "all_ot_nt": "All OT and NT books found in appdef, plus %d miscellaneous books",
     "all_ot_nt_plus_other": "All OT and NT books found in appdef, plus %d miscellaneous books and %d unrecognized books:<br>%s",
-    "red_letter_available": "Red Letter (words of Jesus) option available"
+    "red_letter_available": "Red Letter (words of Jesus) option available in %d NT book files"
   },
   "line_items": {
     "about_box_in_vernacular_desc": "About box information in vernacular language (not just English) (0=No, 1=Yes)",

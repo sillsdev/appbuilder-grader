@@ -2,9 +2,9 @@
 
 ## Scripture Text Content
 - [x] Implement content presence validation
-- [ ] Implement clickable references validation
-- [ ] Implement multilingual scripts validation
-- [ ] Implement red letter text detection
+- [x] Implement clickable references validation
+- [x] Implement multilingual scripts validation
+- [x] Implement red letter text detection
 
 ## Supplementary Materials
 - [ ] Implement glossary validation

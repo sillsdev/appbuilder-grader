@@ -2,6 +2,7 @@ package grader
 
 import (
 	"appbuilder-grader/models"
+	"fmt"
 	"strings"
 )
 
@@ -162,19 +163,100 @@ func (g *Grader) checkContentPresence() models.LineItem {
 }
 
 func (g *Grader) checkClickableReferences() models.LineItem {
-	// Placeholder implementation
-	// 0=Unlinked
-	// 1=Cross-references and parallel passages are linked to text
-	return createIgnoredItem("line_items.clickable_references_name", "line_items.clickable_references_desc", 1.0)
+	item := models.LineItem{
+		Name:        "line_items.clickable_references_name",
+		Description: "line_items.clickable_references_desc",
+		MaxScore:    1.0,
+		Status:      models.StatusWarning,
+		Details:     "details.clickable_references_missing",
+	}
+
+	bookFiles := g.bookFiles()
+	if len(bookFiles) == 0 {
+		item.Status = models.StatusError
+		item.SetDetails("details.no_book_files_found")
+		return item
+	}
+
+	linkedFiles := 0
+	for _, bookFile := range bookFiles {
+		if hasClickableReference(readTextFile(bookFile.Path)) {
+			linkedFiles++
+		}
+	}
+
+	percent := (float64(linkedFiles) / float64(len(bookFiles))) * 100
+	item.SetDetails("details.clickable_references_coverage", linkedFiles, len(bookFiles), fmt.Sprintf("%.1f", percent))
+	if percent > 60 {
+		item.Score = 1.0
+		item.Status = models.StatusPass
+	}
+	return item
 }
 
 func (g *Grader) checkMultilingualScripts() models.LineItem {
-	// Placeholder implementation
-	// 0=No other texts or scripts
-	// 1=Text in additional script(s)
-	// 2=Text in other regional language(s)
-	// 3=Parallel Back Translation
-	return createIgnoredItem("line_items.multilingual_scripts_name", "line_items.multilingual_scripts_desc", 3.0)
+	item := models.LineItem{
+		Name:        "line_items.multilingual_scripts_name",
+		Description: "line_items.multilingual_scripts_desc",
+		MaxScore:    3.0,
+		Status:      models.StatusWarning,
+		Details:     "details.multilingual_scripts_none",
+	}
+
+	collections := g.AppDef.Books
+	if len(collections) <= 1 {
+		return item
+	}
+
+	baseLanguages := make(map[string]bool)
+	scriptsByBase := make(map[string]map[string]bool)
+	hasAdditionalScript := false
+	hasRegionalLanguage := false
+	hasBackTranslation := false
+	primaryBase := languageBase(collections[0].WritingSystem.Code)
+
+	for _, collection := range collections {
+		base := languageBase(collection.WritingSystem.Code)
+		if base == "" {
+			base = languageBase(collection.Id)
+		}
+		if base == "" {
+			continue
+		}
+
+		baseLanguages[base] = true
+		if scriptsByBase[base] == nil {
+			scriptsByBase[base] = make(map[string]bool)
+		}
+		scriptsByBase[base][strings.ToLower(collection.WritingSystem.Code)] = true
+
+		if base == primaryBase && len(scriptsByBase[base]) > 1 {
+			hasAdditionalScript = true
+		}
+		if base != primaryBase && base != "eng" && base != "en" {
+			hasRegionalLanguage = true
+		}
+		if isBackTranslationCollection(collection.Id, collection.BookCollectionName, collection.WritingSystem.Code) {
+			hasBackTranslation = true
+		}
+	}
+
+	switch {
+	case hasBackTranslation:
+		item.Score = 3.0
+		item.Status = models.StatusPass
+		item.SetDetails("details.multilingual_scripts_back_translation", len(collections))
+	case hasRegionalLanguage:
+		item.Score = 2.0
+		item.Status = models.StatusPass
+		item.SetDetails("details.multilingual_scripts_regional_language", len(baseLanguages), len(collections))
+	case hasAdditionalScript:
+		item.Score = 1.0
+		item.Status = models.StatusPass
+		item.SetDetails("details.multilingual_scripts_additional_scripts", len(scriptsByBase[primaryBase]), len(collections))
+	}
+
+	return item
 }
 
 func (g *Grader) checkRedLetterText() models.LineItem {
@@ -186,14 +268,87 @@ func (g *Grader) checkRedLetterText() models.LineItem {
 		Status:      models.StatusWarning,
 		Details:     "details.red_letter_text_details",
 	}
-	// if g.AppDef.Features includes feature with name "show-red-letter"
-	for _, feature := range g.AppDef.Features.Feature {
-		if feature.Name == "show-red-letters" {
-			redLetterItem.Score = 1.0
-			redLetterItem.Status = models.StatusPass
-			redLetterItem.Details = "details.red_letter_available"
-			break
+
+	if !g.hasFeature("show-red-letters") {
+		redLetterItem.SetDetails("details.red_letter_feature_missing")
+		return redLetterItem
+	}
+
+	ntFilesWithWJ := 0
+	for _, bookFile := range g.bookFiles() {
+		if !isNTBook(bookFile.BookID) {
+			continue
+		}
+		if strings.Contains(readTextFile(bookFile.Path), `\wj`) {
+			ntFilesWithWJ++
 		}
 	}
+	if ntFilesWithWJ > 0 {
+		redLetterItem.Score = 1.0
+		redLetterItem.Status = models.StatusPass
+		redLetterItem.SetDetails("details.red_letter_available", ntFilesWithWJ)
+	} else {
+		redLetterItem.SetDetails("details.red_letter_markers_missing")
+	}
 	return redLetterItem
+}
+
+func hasClickableReference(content string) bool {
+	return strings.Contains(content, `\x `) && (strings.Contains(content, `\xt`) || strings.Contains(content, `\ref`)) ||
+		strings.Contains(content, `\ref`) && strings.Contains(content, `|`) && strings.Contains(content, `\ref*`)
+}
+
+func languageBase(code string) string {
+	code = strings.TrimSpace(strings.ToLower(code))
+	if code == "" {
+		return ""
+	}
+	if idx := strings.IndexAny(code, "-_"); idx >= 0 {
+		return code[:idx]
+	}
+	return code
+}
+
+func isBackTranslationCollection(id, name, writingSystem string) bool {
+	haystack := strings.ToLower(id + " " + name + " " + writingSystem)
+	return strings.Contains(haystack, "back translation") ||
+		strings.Contains(haystack, "backtranslation") ||
+		strings.Contains(haystack, "bt") ||
+		strings.Contains(haystack, "english with")
+}
+
+func isNTBook(bookID string) bool {
+	bookID = strings.ToUpper(bookID)
+	for _, ntBook := range AllNTBooks {
+		if bookID == ntBook {
+			return true
+		}
+	}
+	return false
+}
+
+func (g *Grader) hasFeature(name string) bool {
+	if hasFeature(g.AppDef.Features.Feature, name) {
+		return true
+	}
+	for _, collection := range g.AppDef.Books {
+		if hasFeature(collection.Features.Feature, name) {
+			return true
+		}
+		for _, book := range collection.Book {
+			if hasFeature(book.Features.Feature, name) {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func hasFeature(features []models.Feature, name string) bool {
+	for _, feature := range features {
+		if feature.Name == name {
+			return true
+		}
+	}
+	return false
 }
