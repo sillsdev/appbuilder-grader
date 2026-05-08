@@ -7,11 +7,11 @@
 - [x] Implement red letter text detection
 
 ## Supplementary Materials
-- [ ] Implement glossary validation
-- [ ] Implement illustrations validation
-- [ ] Implement topical index validation
-- [ ] Implement reading plan validation
-- [ ] Implement study bible material validation
+- [x] Implement glossary validation
+- [x] Implement illustrations validation
+- [x] Implement topical index validation
+- [x] Implement reading plan validation
+- [x] Implement study bible material validation
 
 ## Multimedia
 - [ ] Implement audio content validation

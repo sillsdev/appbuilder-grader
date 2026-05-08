@@ -71,6 +71,54 @@ func (g *Grader) bookFiles() []projectBookFile {
 	return files
 }
 
+func (g *Grader) bookFilesByID(bookID string) []projectBookFile {
+	bookID = strings.ToUpper(bookID)
+	files := make([]projectBookFile, 0)
+	for _, bookFile := range g.bookFiles() {
+		if bookFile.BookID == bookID {
+			files = append(files, bookFile)
+		}
+	}
+	return files
+}
+
+func (g *Grader) filesUnderDataDir(subdir string) []string {
+	dataDir := g.dataDir()
+	if dataDir == "" {
+		return nil
+	}
+
+	root := filepath.Join(dataDir, filepath.FromSlash(subdir))
+	files := make([]string, 0)
+	_ = filepath.WalkDir(root, func(path string, d os.DirEntry, err error) error {
+		if err != nil || d.IsDir() {
+			return nil
+		}
+		files = append(files, path)
+		return nil
+	})
+	return files
+}
+
+func (g *Grader) resolveDataFile(parts ...string) string {
+	dataDir := g.dataDir()
+	if dataDir == "" {
+		return ""
+	}
+	cleanParts := []string{dataDir}
+	for _, part := range parts {
+		if strings.TrimSpace(part) == "" {
+			continue
+		}
+		cleanParts = append(cleanParts, filepath.FromSlash(part))
+	}
+	path := filepath.Join(cleanParts...)
+	if fileExists(path) {
+		return path
+	}
+	return findFile(dataDir, filepath.Base(path))
+}
+
 func readTextFile(path string) string {
 	content, err := os.ReadFile(path)
 	if err != nil {

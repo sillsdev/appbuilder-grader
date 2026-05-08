@@ -53,7 +53,7 @@ type AppDef struct {
 	InterfaceLanguages  InterfaceLanguages  `xml:"interface-languages"`
 	TranslationMappings TranslationMappings `xml:"translation-mappings"`
 
-	Images       Images       `xml:"images"`
+	Images       []Images     `xml:"images"`
 	AdaptiveIcon AdaptiveIcon `xml:"adaptive-icon"`
 }
 
