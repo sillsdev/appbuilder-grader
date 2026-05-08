@@ -138,6 +138,8 @@ type AudioSource struct {
 	AccessMethods string `xml:"access-methods"`
 	Folder        string `xml:"folder"`
 	Address       string `xml:"address"`
+	Key           string `xml:"key"`
+	DamID         string `xml:"dam-id"`
 }
 
 type Videos struct {
@@ -342,7 +344,16 @@ type Book struct {
 }
 
 type Audio struct {
-	Chapter string `xml:"chapter,attr"`
+	Chapter        string        `xml:"chapter,attr"`
+	Filename       AudioFilename `xml:"filename"`
+	TimingFilename string        `xml:"timing-filename"`
+}
+
+type AudioFilename struct {
+	Src   string `xml:"src,attr"`
+	Len   string `xml:"len,attr"`
+	Size  string `xml:"size,attr"`
+	Value string `xml:",chardata"`
 }
 
 type BookTabs struct {
