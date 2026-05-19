@@ -28,7 +28,7 @@ func (g *Grader) checkAudio() models.LineItem {
 		Name:        "line_items.audio_name",
 		Description: "line_items.audio_desc",
 		MaxScore:    4.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.audio_missing",
 	}
 
@@ -68,7 +68,7 @@ func (g *Grader) checkStyleOfAudio() models.LineItem {
 		Name:        "line_items.style_of_audio_name",
 		Description: "line_items.style_of_audio_desc",
 		MaxScore:    2.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.audio_style_missing",
 	}
 
@@ -91,7 +91,7 @@ func (g *Grader) checkSynchronizedHighlighting() models.LineItem {
 		Name:        "line_items.synchronized_highlighting_name",
 		Description: "line_items.synchronized_highlighting_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.timing_missing",
 	}
 
@@ -114,7 +114,7 @@ func (g *Grader) checkVideo() models.LineItem {
 		Name:        "line_items.video_name",
 		Description: "line_items.video_desc",
 		MaxScore:    4.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.video_missing",
 	}
 

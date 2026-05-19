@@ -28,7 +28,7 @@ func (g *Grader) checkAnalytics() models.LineItem {
 		Name:        "line_items.analytics_name",
 		Description: "line_items.analytics_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.analytics_missing",
 	}
 
@@ -49,7 +49,7 @@ func (g *Grader) checkTextFeedback() models.LineItem {
 		Name:        "line_items.text_feedback_name",
 		Description: "line_items.text_feedback_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.text_feedback_missing",
 	}
 
@@ -67,7 +67,7 @@ func (g *Grader) checkFurtherInfoLink() models.LineItem {
 		Name:        "line_items.further_info_link_name",
 		Description: "line_items.further_info_link_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.further_info_link_missing",
 	}
 
@@ -85,7 +85,7 @@ func (g *Grader) checkContactDetails() models.LineItem {
 		Name:        "line_items.contact_details_name",
 		Description: "line_items.contact_details_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.contact_details_missing",
 	}
 
@@ -102,7 +102,7 @@ func (g *Grader) checkDeepLinking() models.LineItem {
 		Name:        "line_items.deep_linking_name",
 		Description: "line_items.deep_linking_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.deep_linking_missing",
 	}
 

@@ -34,7 +34,7 @@ func (g *Grader) checkMenuNavigation() models.LineItem {
 		Name:        "line_items.menu_navigation_name",
 		Description: "line_items.menu_navigation_desc",
 		MaxScore:    2.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.menu_navigation_english_only",
 	}
 
@@ -76,7 +76,7 @@ func (g *Grader) checkKeyboard() models.LineItem {
 		Name:        "line_items.keyboard_name",
 		Description: "line_items.keyboard_desc",
 		MaxScore:    3.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.keyboard_missing",
 	}
 
@@ -110,7 +110,7 @@ func (g *Grader) checkContentsMenu() models.LineItem {
 		Name:        "line_items.contents_menu_name",
 		Description: "line_items.contents_menu_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.contents_menu_missing",
 	}
 	if g.hasTranslationMapping("Menu_Contents") ||
@@ -128,7 +128,7 @@ func (g *Grader) checkCustomizedGraphics() models.LineItem {
 		Name:        "line_items.customized_graphics_name",
 		Description: "line_items.customized_graphics_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.customized_graphics_missing",
 	}
 
@@ -156,7 +156,7 @@ func (g *Grader) checkStyleAdjustments() models.LineItem {
 		Name:        "line_items.style_adjustments_name",
 		Description: "line_items.style_adjustments_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.style_adjustments_missing",
 	}
 	appDef := g.appDefContent()
@@ -175,7 +175,7 @@ func (g *Grader) checkTextChanges() models.LineItem {
 		Name:        "line_items.text_changes_name",
 		Description: "line_items.text_changes_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.text_changes_missing",
 	}
 
@@ -201,7 +201,7 @@ func (g *Grader) checkAboutBoxInfo() models.LineItem {
 		Name:        "line_items.about_box_information_name",
 		Description: "line_items.about_box_information_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.about_box_information_missing",
 	}
 
@@ -226,7 +226,7 @@ func (g *Grader) checkAboutBoxVernacular() models.LineItem {
 		Name:        "line_items.about_box_in_vernacular_name",
 		Description: "line_items.about_box_in_vernacular_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.about_box_vernacular_missing",
 	}
 

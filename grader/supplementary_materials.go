@@ -37,7 +37,7 @@ func (g *Grader) checkGlossary() models.LineItem {
 		Name:        "line_items.glossary_name",
 		Description: "line_items.glossary_desc",
 		MaxScore:    3.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.glossary_missing",
 	}
 
@@ -87,7 +87,7 @@ func (g *Grader) checkIllustrations() models.LineItem {
 		Name:        "line_items.illustrations_name",
 		Description: "line_items.illustrations_desc",
 		MaxScore:    2.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.illustrations_missing",
 	}
 
@@ -124,7 +124,7 @@ func (g *Grader) checkTopicalIndex() models.LineItem {
 		Name:        "line_items.topical_index_name",
 		Description: "line_items.topical_index_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.topical_index_missing",
 	}
 	files := g.bookFilesByID("TDX")
@@ -141,7 +141,7 @@ func (g *Grader) checkReadingPlan() models.LineItem {
 		Name:        "line_items.reading_plan_name",
 		Description: "line_items.reading_plan_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.reading_plan_missing",
 	}
 
@@ -174,7 +174,7 @@ func (g *Grader) checkStudyBibleMaterial() models.LineItem {
 		Name:        "line_items.study_bible_material_name",
 		Description: "line_items.study_bible_material_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.study_bible_material_missing",
 	}
 

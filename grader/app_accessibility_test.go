@@ -23,19 +23,19 @@ func TestAppBuilderVersionScoresAgainstHardcodedLatest(t *testing.T) {
 
 	g.AppDef.ProgramVersion = "13.4"
 	item := g.checkAppBuilderVersion()
-	if item.Status != models.StatusWarning || item.Score != 3 {
+	if item.Status != models.StatusSuggested || item.Score != 3 {
 		t.Fatalf("expected version 13.4 to score one major behind, got status=%s score=%v", item.Status, item.Score)
 	}
 
 	g.AppDef.ProgramVersion = "12.1"
 	item = g.checkAppBuilderVersion()
-	if item.Status != models.StatusWarning || item.Score != 1 {
+	if item.Status != models.StatusSuggested || item.Score != 1 {
 		t.Fatalf("expected version 12.1 to score two majors behind, got status=%s score=%v", item.Status, item.Score)
 	}
 
 	g.AppDef.ProgramVersion = "11.9"
 	item = g.checkAppBuilderVersion()
-	if item.Status != models.StatusWarning || item.Score != 0 {
+	if item.Status != models.StatusSuggested || item.Score != 0 {
 		t.Fatalf("expected version 11.9 to score more than two majors behind, got status=%s score=%v", item.Status, item.Score)
 	}
 }

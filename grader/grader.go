@@ -72,10 +72,10 @@ func determineLineItemStatus(lineItems []models.LineItem) models.Status {
 		if li.Status == models.StatusIgnored {
 			continue
 		}
-		if li.Status == models.StatusError {
-			status = models.StatusError
-		} else if li.Status == models.StatusWarning && status != models.StatusError {
-			status = models.StatusWarning
+		if li.Status == models.StatusImportant {
+			status = models.StatusImportant
+		} else if li.Status == models.StatusSuggested && status != models.StatusImportant {
+			status = models.StatusSuggested
 		}
 	}
 	return status
@@ -127,7 +127,7 @@ func (g *Grader) Evaluate() (*models.Report, error) {
 			} else {
 				c.Status = determineLineItemStatus(c.LineItems)
 				if c.Status == models.StatusPass && c.Score < c.MaxScore {
-					c.Status = models.StatusWarning
+					c.Status = models.StatusSuggested
 				}
 			}
 		}

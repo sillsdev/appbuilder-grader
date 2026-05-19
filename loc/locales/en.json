@@ -215,4 +215,12 @@
     "youversion_text_desc": "Text available in YouVersion app (0=No, 1=Yes)",
     "youversion_text_name": "YouVersion Text"
   }
+  ,
+  "ui": {
+    "important_improvements": "Important improvements",
+    "suggested_improvements": "Suggested improvements",
+    "passed": "Passed",
+    "ignored": "Ignored",
+    "ignored_label": "Ignored"
+  }
 }

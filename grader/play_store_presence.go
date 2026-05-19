@@ -31,7 +31,7 @@ func (g *Grader) checkAppDescription() models.LineItem {
 		Name:        "line_items.app_description_name",
 		Description: "line_items.app_description_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.app_description_missing",
 	}
 
@@ -51,7 +51,7 @@ func (g *Grader) checkLocalizedDescriptionLWC() models.LineItem {
 		Name:        "line_items.localized_description_lwc_name",
 		Description: "line_items.localized_description_lwc_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.localized_description_lwc_missing",
 	}
 
@@ -73,7 +73,7 @@ func (g *Grader) checkLocalizedDescriptionVernacular() models.LineItem {
 		Name:        "line_items.localized_description_vernacular_name",
 		Description: "line_items.localized_description_vernacular_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.localized_description_vernacular_missing",
 	}
 
@@ -97,7 +97,7 @@ func (g *Grader) checkPhoneScreenshots() models.LineItem {
 		Name:        "line_items.phone_screenshots_name",
 		Description: "line_items.phone_screenshots_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.phone_screenshots_missing",
 	}
 
@@ -114,7 +114,7 @@ func (g *Grader) checkTabletScreenshots() models.LineItem {
 		Name:        "line_items.tablet_screenshots_name",
 		Description: "line_items.tablet_screenshots_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.tablet_screenshots_missing",
 	}
 
@@ -137,7 +137,7 @@ func (g *Grader) checkDemoVideo() models.LineItem {
 		Name:        "line_items.demo_video_name",
 		Description: "line_items.demo_video_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.demo_video_missing",
 	}
 

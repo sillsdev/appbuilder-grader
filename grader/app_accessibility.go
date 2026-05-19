@@ -31,7 +31,7 @@ func (g *Grader) checkAppBuilderVersion() models.LineItem {
 		Name:        "line_items.appbuilder_version_name",
 		Description: "line_items.appbuilder_version_desc",
 		MaxScore:    5.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.appbuilder_version_missing",
 	}
 
@@ -51,17 +51,17 @@ func (g *Grader) checkAppBuilderVersion() models.LineItem {
 		item.Score = 4
 		item.Status = models.StatusPass
 		item.SetDetails("details.appbuilder_version_current_major", g.AppDef.ProgramVersion, latestAppBuilderVersion)
-	case majorDiff == 1:
+		case majorDiff == 1:
 		item.Score = 3
-		item.Status = models.StatusWarning
+		item.Status = models.StatusSuggested
 		item.SetDetails("details.appbuilder_version_one_major_behind", g.AppDef.ProgramVersion, latestAppBuilderVersion)
 	case majorDiff == 2:
 		item.Score = 1
-		item.Status = models.StatusWarning
+		item.Status = models.StatusSuggested
 		item.SetDetails("details.appbuilder_version_two_major_behind", g.AppDef.ProgramVersion, latestAppBuilderVersion)
 	default:
 		item.Score = 0
-		item.Status = models.StatusWarning
+		item.Status = models.StatusSuggested
 		item.SetDetails("details.appbuilder_version_more_than_two_behind", g.AppDef.ProgramVersion, latestAppBuilderVersion)
 	}
 	return item
@@ -72,7 +72,7 @@ func (g *Grader) checkShareable() models.LineItem {
 		Name:        "line_items.shareable_one_to_one_name",
 		Description: "line_items.shareable_one_to_one_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.shareable_missing",
 	}
 
@@ -93,7 +93,7 @@ func (g *Grader) checkDirectLinks() models.LineItem {
 		Name:        "line_items.direct_links_name",
 		Description: "line_items.direct_links_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.direct_links_missing",
 	}
 
@@ -114,7 +114,7 @@ func (g *Grader) checkPlayStorePublishing() models.LineItem {
 		Name:        "line_items.play_store_publishing_name",
 		Description: "line_items.play_store_publishing_desc",
 		MaxScore:    2.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.play_store_publishing_missing",
 	}
 

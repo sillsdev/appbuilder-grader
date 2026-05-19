@@ -25,7 +25,7 @@ func (g *Grader) checkWebSiteText() models.LineItem {
 		Name:        "line_items.web_site_text_name",
 		Description: "line_items.web_site_text_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.web_site_text_missing",
 	}
 

@@ -17,8 +17,8 @@
         .toc-item { margin-bottom: 5px; }
         .toc-item a { text-decoration: none; color: #444; display: flex; justify-content: space-between; padding: 6px 10px; border-radius: 4px; background: #f8f9fa; transition: background 0.2s; }
         .toc-item a:hover { background: #e9ecef; color: #007bff; }
-        .toc-status-error a { border-left: 4px solid #dc3545; }
-        .toc-status-warning a { border-left: 4px solid #ffc107; }
+        .toc-status-important a { border-left: 4px solid #dc3545; }
+        .toc-status-suggested a { border-left: 4px solid #ffc107; }
         .toc-status-pass a { border-left: 4px solid #28a745; }
         .toc-status-ignored a { border-left: 4px solid #6c757d; opacity: 0.8; }
         .summary { background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 5px solid #007bff; }
@@ -32,8 +32,8 @@
         .line-items { margin-top: 15px; }
         .line-item { display: flex; flex-direction: column; border-left: 4px solid #ccc; padding-left: 10px; margin-bottom: 10px; background: #fafafa; padding: 10px; border-radius: 4px; }
         .line-item.status-pass { border-left-color: #28a745; }
-        .line-item.status-warning { border-left-color: #ffc107; }
-        .line-item.status-error { border-left-color: #dc3545; }
+        .line-item.status-suggested { border-left-color: #ffc107; }
+        .line-item.status-important { border-left-color: #dc3545; }
         .line-item.status-ignored { border-left-color: #6c757d; opacity: 0.7; }
         .line-item-header { display: flex; justify-content: space-between; font-weight: bold; }
         .line-item-desc { font-size: 0.9em; color: #666; margin-top: 5px; }
@@ -44,8 +44,8 @@
         details[open] .dropdown-arrow { transform: rotate(90deg); }
         .status-icon { margin-right: 5px; }
         .category-status-pass summary { color: #28a745; }
-        .category-status-warning summary { color: #d39e00; }
-        .category-status-error summary { color: #dc3545; }
+        .category-status-suggested summary { color: #d39e00; }
+        .category-status-important summary { color: #dc3545; }
         .category-status-ignored summary { color: #6c757d; }
     </style>
 </head>
@@ -56,13 +56,13 @@
             <h2 class="toc-title">Table of Contents</h2>
             
             <div class="toc-group">
-                <div class="toc-group-title">Errors</div>
+                <div class="toc-group-title">{{t "ui.important_improvements"}}</div>
                 <ul class="toc-list">
                     {{- range $index, $cat := .Categories}}
-                    {{- if eq $cat.Status "error"}}
-                    <li class="toc-item toc-status-error">
+                    {{- if eq $cat.Status "important"}}
+                    <li class="toc-item toc-status-important">
                         <a href="#cat-{{$index}}">
-                            <span>❌ {{t $cat.Name}}</span>
+                            <span>❗ {{t $cat.Name}}</span>
                             <span>{{$cat.Score}}/{{$cat.MaxScore}}</span>
                         </a>
                     </li>
@@ -72,13 +72,13 @@
             </div>
 
             <div class="toc-group">
-                <div class="toc-group-title">Warnings</div>
+                <div class="toc-group-title">{{t "ui.suggested_improvements"}}</div>
                 <ul class="toc-list">
                     {{- range $index, $cat := .Categories}}
-                    {{- if eq $cat.Status "warning"}}
-                    <li class="toc-item toc-status-warning">
+                    {{- if eq $cat.Status "suggested"}}
+                    <li class="toc-item toc-status-suggested">
                         <a href="#cat-{{$index}}">
-                            <span>⚠️ {{t $cat.Name}}</span>
+                            <span>💡 {{t $cat.Name}}</span>
                             <span>{{$cat.Score}}/{{$cat.MaxScore}}</span>
                         </a>
                     </li>
@@ -88,7 +88,7 @@
             </div>
 
             <div class="toc-group">
-                <div class="toc-group-title">Passed</div>
+                <div class="toc-group-title">{{t "ui.passed"}}</div>
                 <ul class="toc-list">
                     {{- range $index, $cat := .Categories}}
                     {{- if eq $cat.Status "pass"}}
@@ -104,14 +104,14 @@
             </div>
 
             <div class="toc-group">
-                <div class="toc-group-title">Ignored</div>
+                <div class="toc-group-title">{{t "ui.ignored"}}</div>
                 <ul class="toc-list">
                     {{- range $index, $cat := .Categories}}
                     {{- if eq $cat.Status "ignored"}}
                     <li class="toc-item toc-status-ignored">
                         <a href="#cat-{{$index}}">
                             <span>⏸️ {{t $cat.Name}}</span>
-                            <span>Ignored</span>
+                            <span>{{t "ui.ignored_label"}}</span>
                         </a>
                     </li>
                     {{- end}}
@@ -134,8 +134,8 @@
             {{- range $index, $cat := .Categories}}
             <details id="cat-{{$index}}" class="category category-status-{{.Status}}" {{- if and (ne .Status "pass") (ne .Status "ignored")}} open{{- end}}>
                 <summary class="category-header">
-                    <span class="category-name"><span class="dropdown-arrow">▶</span><span class="status-icon">{{if eq .Status "pass"}}✅{{else if eq .Status "warning"}}⚠️{{else if eq .Status "ignored"}}⏸️{{else}}❌{{end}}</span>{{t .Name}}{{if eq .Status "ignored"}} (Ignored){{end}}</span>
-                    <span class="category-score">{{.Score}} / {{.MaxScore}} | W: {{.Weight}} ({{printf "%.1f" .WeightPercentage}}%){{if eq .Status "ignored"}} (Ignored){{end}}</span>
+                    <span class="category-name"><span class="dropdown-arrow">▶</span><span class="status-icon">{{if eq .Status "pass"}}✅{{else if eq .Status "suggested"}}💡{{else if eq .Status "ignored"}}⏸️{{else}}❗{{end}}</span>{{t .Name}}{{if eq .Status "ignored"}} ({{t "ui.ignored_label"}}){{end}}</span>
+                    <span class="category-score">{{.Score}} / {{.MaxScore}} | W: {{.Weight}} ({{printf "%.1f" .WeightPercentage}}%){{if eq .Status "ignored"}} ({{t "ui.ignored_label"}}){{end}}</span>
                 </summary>
                 
                 <div class="category-content">
@@ -146,8 +146,8 @@
                         {{- range .LineItems}}
                         <div class="line-item status-{{.Status}}">
                             <div class="line-item-header">
-                                <span><span class="status-icon">{{if eq .Status "pass"}}✅{{else if eq .Status "warning"}}⚠️{{else if eq .Status "ignored"}}⏸️{{else}}❌{{end}}</span>{{t .Name}}{{if eq .Status "ignored"}} (Ignored){{end}}</span>
-                                <span>{{if eq .Status "ignored"}}Ignored ({{.Score}} / {{.MaxScore}}){{else}}{{.Score}} / {{.MaxScore}}{{end}}</span>
+                                <span><span class="status-icon">{{if eq .Status "pass"}}✅{{else if eq .Status "suggested"}}💡{{else if eq .Status "ignored"}}⏸️{{else}}❗{{end}}</span>{{t .Name}}{{if eq .Status "ignored"}} ({{t "ui.ignored_label"}}){{end}}</span>
+                                <span>{{if eq .Status "ignored"}}{{t "ui.ignored_label"}} ({{.Score}} / {{.MaxScore}}){{else}}{{.Score}} / {{.MaxScore}}{{end}}</span>
                             </div>
                             <div class="line-item-desc">{{t .Description}}</div>
                             {{- if .Details}}<div class="line-item-details">{{t .Details .DetailsArgs | safeHTML }}</div>{{- end}}

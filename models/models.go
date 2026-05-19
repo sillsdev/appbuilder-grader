@@ -5,8 +5,10 @@ type Status string
 const (
 	StatusPass    Status = "pass"
 	StatusIgnored Status = "ignored"
-	StatusError   Status = "error"
-	StatusWarning Status = "warning"
+	// Less harsh status labels: important = needs important improvement,
+	// suggested = optional or suggested improvement
+	StatusImportant Status = "important"
+	StatusSuggested Status = "suggested"
 )
 
 // LineItem represents a specific check within a category

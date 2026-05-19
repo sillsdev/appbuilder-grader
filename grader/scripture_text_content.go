@@ -55,7 +55,7 @@ func (g *Grader) checkContentPresence() models.LineItem {
 	}
 
 	contentItem.Score = 0.0
-	contentItem.Status = models.StatusError
+	contentItem.Status = models.StatusImportant
 	contentItem.SetDetails("details.no_books_found")
 
 	// Check for book completeness
@@ -114,7 +114,7 @@ func (g *Grader) checkContentPresence() models.LineItem {
 	// Check if any books are present
 	if len(g.AppDef.Books) > 0 {
 		contentItem.Score = 1.0
-		contentItem.Status = models.StatusWarning
+		contentItem.Status = models.StatusSuggested
 		contentItem.SetDetails("details.found_books_not_nt_ot", len(g.AppDef.Books), otherBooks)
 	} else {
 		return contentItem
@@ -167,13 +167,13 @@ func (g *Grader) checkClickableReferences() models.LineItem {
 		Name:        "line_items.clickable_references_name",
 		Description: "line_items.clickable_references_desc",
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.clickable_references_missing",
 	}
 
 	bookFiles := g.bookFiles()
 	if len(bookFiles) == 0 {
-		item.Status = models.StatusError
+		item.Status = models.StatusImportant
 		item.SetDetails("details.no_book_files_found")
 		return item
 	}
@@ -205,7 +205,7 @@ func (g *Grader) checkMultilingualScripts() models.LineItem {
 		Name:        "line_items.multilingual_scripts_name",
 		Description: "line_items.multilingual_scripts_desc",
 		MaxScore:    3.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.multilingual_scripts_none",
 	}
 
@@ -271,7 +271,7 @@ func (g *Grader) checkRedLetterText() models.LineItem {
 		Description: "line_items.red_letter_text_desc",
 		Score:       0.0,
 		MaxScore:    1.0,
-		Status:      models.StatusWarning,
+		Status:      models.StatusSuggested,
 		Details:     "details.red_letter_text_details",
 	}
 
