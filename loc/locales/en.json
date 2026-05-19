@@ -26,7 +26,7 @@
     "red_letter_text_details": "No Red Letter (words of Jesus) option available",
     "study_bible_material_details": "Study Bible material check not implemented yet",
     "topical_index_details": "Topical index check not implemented yet",
-    "not_implemented_yet": "Not implemented yet",
+    "not_implemented_yet": "Not implemented yet, or not possible to detect",
     "no_book_files_found": "No book files found in project data",
     "clickable_references_missing": "Cross-reference links were not found in enough book files",
     "clickable_references_coverage": "Found cross-reference link markers in %d of %d standard Bible book files (%s%%)",
