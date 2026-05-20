@@ -1,4 +1,5 @@
 bin
+dist
 .vscode
 out
 project_data

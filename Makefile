@@ -1,6 +1,7 @@
 CLI_BINARY_NAME=appbuilder-grader
 LAMBDA_BINARY_NAME=appbuilder-grader-lambda
 OUTPUT_DIR=bin
+DIST_DIR=dist/lambda
 
 all: build-cli build-lambda
 
@@ -12,6 +13,9 @@ build-cli:
 build-lambda:
 	GOOS=linux GOARCH=amd64 go build -o ${OUTPUT_DIR}/${LAMBDA_BINARY_NAME}-linux-amd64 ./cmd/lambda
 	GOOS=linux GOARCH=arm64 go build -o ${OUTPUT_DIR}/${LAMBDA_BINARY_NAME}-linux-arm64 ./cmd/lambda
+
+package-lambda:
+	./deploy/lambda/package.sh
 
 build-all: build-cli build-lambda build-linux build-mac build-windows
 
@@ -28,7 +32,7 @@ build-windows:
 
 clean:
 	go clean
-	rm -rf ${OUTPUT_DIR}
+	rm -rf ${OUTPUT_DIR} ${DIST_DIR}
 
 run: build
 	./${OUTPUT_DIR}/${CLI_BINARY_NAME}
