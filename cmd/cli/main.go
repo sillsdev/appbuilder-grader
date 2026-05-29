@@ -1,12 +1,14 @@
 package main
 
 import (
+	"appbuilder-grader/reporter"
 	"appbuilder-grader/runner"
 	"errors"
 	"flag"
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 )
 
 func main() {
@@ -39,9 +41,41 @@ func RunCLI(args []string) error {
 
 	fmt.Printf("Analyzing directory: %s\n", *targetDir)
 
-	report, _, _, err := runner.Evaluate(*targetDir, *outputDir, *lang)
+	report, err := runner.Evaluate(*targetDir, *lang)
 	if err != nil {
 		return err
+	}
+
+	jsonPath := ""
+	htmlPath := ""
+
+	if *outputDir != "" {
+		jsonPath = filepath.Join(*outputDir, "report.json")
+		htmlPath = filepath.Join(*outputDir, "report.html")
+
+		if err := os.MkdirAll(*outputDir, 0755); err != nil {
+			return fmt.Errorf("failed to create output directory: %w", err)
+		}
+
+		if json, err := reporter.ExportJSON(report, jsonPath); err != nil {
+			log.Printf("Failed to generate JSON report: %v\n", err)
+		} else {
+			if err := os.WriteFile(jsonPath, json, 0644); err != nil {
+				log.Printf("Failed to save JSON report: %v\n", err)
+			} else {
+				log.Printf("JSON report saved to: %s\n", jsonPath)
+			}
+		}
+
+		if html, err := reporter.ExportHTML(report, htmlPath); err != nil {
+			log.Printf("Failed to generate HTML report: %v\n", err)
+		} else {
+			if err := os.WriteFile(htmlPath, html, 0644); err != nil {
+				log.Printf("Failed to save HTML report: %v\n", err)
+			} else {
+				log.Printf("HTML report saved to: %s\n", htmlPath)
+			}
+		}
 	}
 
 	fmt.Printf("Grading Complete! Overall Percentage: %.2f%%\n", report.Percentage)
