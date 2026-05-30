@@ -11,7 +11,7 @@ zip_path="$dist_dir/${binary_name}.zip"
 mkdir -p "$dist_dir"
 
 pushd "$repo_root" >/dev/null
-GOOS=linux GOARCH=amd64 go build -o "$dist_dir/bootstrap" ./cmd/lambda
+GOOS=linux GOARCH=arm64 go build -o "$dist_dir/bootstrap" ./cmd/lambda
 pushd "$dist_dir" >/dev/null
 zip -q -j "$zip_path" bootstrap
 popd >/dev/null
