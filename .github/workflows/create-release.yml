@@ -2,12 +2,9 @@ name: Create Release
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - v*
   workflow_dispatch:
-
-permissions:
-  contents: read
 
 jobs:
   release:
@@ -32,4 +29,4 @@ jobs:
         uses: softprops/action-gh-release@v3
         with:
           files: |
-            dist/*
+            bin/*
