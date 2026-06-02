@@ -17,7 +17,7 @@ build-lambda:
 package-lambda:
 	./deploy/lambda/package.sh
 
-build-all: build-cli build-lambda build-linux build-mac build-windows
+build-all: build-lambda build-linux build-mac build-windows
 
 build-linux:
 	GOOS=linux GOARCH=amd64 go build -o ${OUTPUT_DIR}/${CLI_BINARY_NAME}-linux-amd64 ./cmd/cli

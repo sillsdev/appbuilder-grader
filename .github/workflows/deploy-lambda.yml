@@ -1,11 +1,9 @@
-name: Deploy Lambda
+name: Deploy Staging Lambda
 
 on:
   push:
     branches:
-      - develop
       - main
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -14,25 +12,11 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - branch: develop
-            environment: staging
-            aws_region: AWS_REGION_STAGING
-            aws_role_arn: AWS_ROLE_ARN_STAGING
-            lambda_function_name: LAMBDA_FUNCTION_NAME_STAGING
-          - branch: main
-            environment: production
-            aws_region: AWS_REGION_PRODUCTION
-            aws_role_arn: AWS_ROLE_ARN_PRODUCTION
-            lambda_function_name: LAMBDA_FUNCTION_NAME_PRODUCTION
-    if: github.ref_name == matrix.branch
-    environment: ${{ matrix.environment }}
+    environment: staging
     env:
-      AWS_REGION: ${{ secrets[matrix.aws_region] }}
-      AWS_ROLE_ARN: ${{ secrets[matrix.aws_role_arn] }}
-      LAMBDA_FUNCTION_NAME: ${{ secrets[matrix.lambda_function_name] }}
+      AWS_REGION: ${{ secrets.AWS_REGION_STAGING }}
+      AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN_STAGING }}
+      LAMBDA_FUNCTION_NAME: ${{ secrets.LAMBDA_FUNCTION_NAME_STAGING }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
