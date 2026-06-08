@@ -82,6 +82,7 @@ func HandleLambda(ctx context.Context, request LambdaRequest) (LambdaResponse, e
 	if err != nil {
 		return LambdaResponse{}, err
 	}
+	fmt.Printf("Grading Complete! Overall Percentage: %.2f%%\n", report.Percentage)
 
 	json, err := reporter.ExportJSON(report, "")
 	if err != nil {
@@ -97,6 +98,7 @@ func HandleLambda(ctx context.Context, request LambdaRequest) (LambdaResponse, e
 	if err != nil {
 		return LambdaResponse{}, err
 	}
+	fmt.Println("Exported JSON and HTML. Uploading to S3...")
 	client := s3.NewFromConfig(awsCfg)
 
 	// Upload to S3
@@ -139,6 +141,7 @@ func parseS3URL(raw string) (string, string, error) {
 }
 
 func uploadToS3(ctx context.Context, client *s3.Client, data []byte, bucket string, key string, contentType string) error {
+	fmt.Printf("Uploading %s to s3 (content size = %.2f KB)...\n", bucket + "/" + key, float64(len(data)) / 1024.0)
 	_, err := client.PutObject(ctx, &s3.PutObjectInput{
 		Bucket:      &bucket,
 		Key:         &key,

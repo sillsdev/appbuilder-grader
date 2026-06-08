@@ -45,6 +45,7 @@ func RunCLI(args []string) error {
 	if err != nil {
 		return err
 	}
+	fmt.Printf("Grading Complete! Overall Percentage: %.2f%%\n", report.Percentage)
 
 	jsonPath := ""
 	htmlPath := ""
@@ -77,7 +78,5 @@ func RunCLI(args []string) error {
 			}
 		}
 	}
-
-	fmt.Printf("Grading Complete! Overall Percentage: %.2f%%\n", report.Percentage)
 	return nil
 }
