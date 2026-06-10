@@ -1,6 +1,7 @@
 package main
 
 import (
+	"appbuilder-grader/cmd"
 	"appbuilder-grader/reporter"
 	"appbuilder-grader/runner"
 	"bytes"
@@ -20,6 +21,7 @@ import (
 const projectsMountRoot = "/mnt/projects"
 
 func main() {
+	// Start the Lambda function handler
 	lambda.Start(HandleLambda)
 }
 
@@ -38,29 +40,33 @@ func main() {
 */
 
 type Project struct {
-	Id           int    `json:"id"`
-	AppId        int    `json:"app_id"`
-	Name         string `json:"name"`
-	LanguageCode string `json:"language_code"`
-	S3Url        string `json:"s3_url"`
+	Id           	int    `json:"id"`
+	AppId        	string    `json:"appId"`
+	Name         	string `json:"name"`
+	LanguageCode 	string `json:"languageCode"`
+	S3Url        	string `json:"s3Url"`
 }
 type LambdaRequest struct {
-	ReportId     int     `json:"report_id"`
-	ReportPrefix string  `json:"report_prefix"`
-	Project      Project `json:"project"`
-	PublisherId  int     `json:"publisher_id"`
+	ReportId     	string  `json:"reportId"`
+	Project      	Project `json:"project"`
+	PublisherId  	string  `json:"publisherId"`
+	ReportLanguage 	string  `json:"reportLanguage"`
 }
 
 type LambdaResponse struct {
-	JSONPath   string  `json:"json_path,omitempty"`
-	HTMLPath   string  `json:"html_path,omitempty"`
-	TotalScore float64 `json:"total_score,omitempty"`
+	JSONPath   		string  `json:"jsonPath,omitempty"`
+	HTMLPath   		string  `json:"htmlPath,omitempty"`
+	TotalScore 		float64 `json:"totalScore,omitempty"`
+	GraderVersion 	string  `json:"graderVersion,omitempty"`
 }
 
 func HandleLambda(ctx context.Context, request LambdaRequest) (LambdaResponse, error) {
 	// s3 projects bucket is mounted at /mnt/projects
 	// s3 url is of the form s3://{{bucket}}/{{key}}
 	// bucket is ENV.PROJECTS_BUCKET
+
+	fmt.Printf("Appbuilder Grader version %s\n", cmd.Version())
+	fmt.Printf("Received lambda request %+v", request)
 
 	bucket, objectPath, err := parseS3URL(request.Project.S3Url)
 	if err != nil {
@@ -76,7 +82,10 @@ func HandleLambda(ctx context.Context, request LambdaRequest) (LambdaResponse, e
 	}
 
 	// Only English supported at this time
-	lang := "en"
+	lang := request.ReportLanguage
+	if lang == "" {
+		lang = "en"
+	}
 
 	report, err := runner.Evaluate(targetDir, lang)
 	if err != nil {
@@ -103,8 +112,8 @@ func HandleLambda(ctx context.Context, request LambdaRequest) (LambdaResponse, e
 
 	// Upload to S3
 	// object path is /reports/{{reportId}}/report.json
-	jsonPath := "reports/" + fmt.Sprintf("%d", request.ReportId) + "/report.json"
-	htmlPath := "reports/" + fmt.Sprintf("%d", request.ReportId) + "/report.html"
+	jsonPath := "reports/" + fmt.Sprintf("%s", request.ReportId) + "/report.json"
+	htmlPath := "reports/" + fmt.Sprintf("%s", request.ReportId) + "/report.html"
 	if err := uploadToS3(ctx, client, json, os.Getenv("ARTIFACTS_BUCKET"), jsonPath, "application/json; charset=utf-8"); err != nil {
 		return LambdaResponse{}, err
 	}
@@ -112,7 +121,7 @@ func HandleLambda(ctx context.Context, request LambdaRequest) (LambdaResponse, e
 		return LambdaResponse{}, err
 	}
 
-	return LambdaResponse{JSONPath: jsonPath, HTMLPath: htmlPath, TotalScore: report.TotalScore}, nil
+	return LambdaResponse{JSONPath: jsonPath, HTMLPath: htmlPath, TotalScore: report.TotalScore, GraderVersion: cmd.Version()}, nil
 }
 
 func projectMountPath(objectPath string) (string, error) {

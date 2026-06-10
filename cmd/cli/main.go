@@ -1,6 +1,7 @@
 package main
 
 import (
+	"appbuilder-grader/cmd"
 	"appbuilder-grader/reporter"
 	"appbuilder-grader/runner"
 	"errors"
@@ -33,6 +34,8 @@ func RunCLI(args []string) error {
 	if err := flags.Parse(args); err != nil {
 		return err
 	}
+
+	fmt.Printf("Appbuilder Grader version %s\n", cmd.Version())
 
 	if *targetDir == "" {
 		flags.Usage()
