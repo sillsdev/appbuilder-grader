@@ -12,6 +12,7 @@ import (
 	"os"
 	"path"
 	"strings"
+	"time"
 
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/aws/aws-sdk-go-v2/config"
@@ -66,7 +67,14 @@ func HandleLambda(ctx context.Context, request LambdaRequest) (LambdaResponse, e
 	// bucket is ENV.PROJECTS_BUCKET
 
 	fmt.Printf("Appbuilder Grader version %s\n", cmd.Version())
-	fmt.Printf("Received lambda request %+v", request)
+	fmt.Printf("Received lambda request %+v\n", request)
+
+	// Start timing
+	start := time.Now()
+	defer func() {
+		duration := time.Since(start)
+		fmt.Printf("Total execution time: %s\n", duration)
+	}()
 
 	bucket, objectPath, err := parseS3URL(request.Project.S3Url)
 	if err != nil {
@@ -110,6 +118,11 @@ func HandleLambda(ctx context.Context, request LambdaRequest) (LambdaResponse, e
 	fmt.Println("Exported JSON and HTML. Uploading to S3...")
 	client := s3.NewFromConfig(awsCfg)
 
+	uploadStart := time.Now()
+	defer func() {
+		uploadDuration := time.Since(uploadStart)
+		fmt.Printf("S3 upload time: %s\n", uploadDuration)
+	}()
 	// Upload to S3
 	// object path is /reports/{{reportId}}/report.json
 	jsonPath := "reports/" + fmt.Sprintf("%s", request.ReportId) + "/report.json"
